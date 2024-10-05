@@ -1,0 +1,40 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:ResizingControlDemo.Controls"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="500"
+        Width="700" Height="600"
+        WindowStartupLocation="CenterScreen"
+        x:Class="ResizingControlDemo.MainWindow"
+        Title="ResizingControlDemo">
+  
+  <Window.Styles>
+    <Style Selector="Canvas.ResizingAdorner > :is(Control)">
+      <Setter Property="(AdornerLayer.Adorner)">
+        <Template>
+          <controls:ResizingAdornerControl />
+        </Template>
+      </Setter>
+    </Style>
+  </Window.Styles>
+
+  <Canvas Classes="ResizingAdorner" 
+          Background="WhiteSmoke" 
+          Width="400" Height="400">
+    <Rectangle Width="100" Height="100"
+               Canvas.Left="50" Canvas.Top="50"
+               Fill="Red" />
+    <Ellipse Width="50" Height="50"
+             Canvas.Left="200" Canvas.Top="50"
+             Fill="Green" />
+    <TextBox Width="150" Height="32"
+             Canvas.Left="50" Canvas.Top="200"
+             Text="Sample text" />
+   
+    <Button Width="150" Height="32"
+            Canvas.Left="50" Canvas.Top="300"
+            Content="Click Me!" />
+  </Canvas>
+
+</Window>
