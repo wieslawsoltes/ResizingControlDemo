@@ -1,6 +1,5 @@
 <Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:controls="using:ResizingControlDemo.Controls">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <Design.PreviewWith>
     <Canvas Background="WhiteSmoke" Width="200" Height="200">
       <Rectangle Width="100"
@@ -9,13 +8,13 @@
                  Canvas.Left="50"
                  Canvas.Top="50">
         <AdornerLayer.Adorner>
-          <controls:ResizingAdornerControl />
+          <ResizingAdornerControl />
         </AdornerLayer.Adorner>
       </Rectangle>
     </Canvas>
   </Design.PreviewWith>
 
-  <Style Selector="controls|ResizingAdornerControl">
+  <Style Selector="ResizingAdornerControl">
 
     <Setter Property="AdornedElement" Value="{Binding $self.(AdornerLayer.AdornedElement)}" />
     <Setter Property="ClipToBounds" Value="False" />
@@ -24,10 +23,10 @@
     <Setter Property="Template">
       <ControlTemplate>
         <Canvas Name="AdornerCanvas"
-                Width="{Binding $parent[controls:ResizingAdornerControl].AdornedElement.Bounds.Width}"
-                Height="{Binding $parent[controls:ResizingAdornerControl].AdornedElement.Bounds.Height}"
+                Width="{Binding $parent[ResizingAdornerControl].AdornedElement.Bounds.Width}"
+                Height="{Binding $parent[ResizingAdornerControl].AdornedElement.Bounds.Height}"
                 Background="Transparent"
-                Tag="{Binding $parent[controls:ResizingAdornerControl].AdornedElement}">
+                Tag="{Binding $parent[ResizingAdornerControl].AdornedElement}">
           <Thumb Name="MoveThumb"
                  Margin="0,0,0,0"
                  Width="{Binding #AdornerCanvas.Bounds.Width}"
