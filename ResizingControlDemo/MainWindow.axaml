@@ -49,14 +49,14 @@
                 HorizontalAlignment="Center"
                 DockPanel.Dock="Bottom"/>
 
-      <ResizingHostControl Name="ResizingHostControl">
+      <ResizingHostControl Name="ResizingHost">
 
         <Canvas Name="EditorCanvas"
                 Classes="ResizingAdorner" 
                 Background="WhiteSmoke" 
                 Width="400" Height="400"
                 ResizingAdornerControl.IsResizingEnabled="{Binding #IsResizingEnabledCheckBox.IsChecked}"
-                ResizingAdornerControl.ResizingHostControl="{Binding #ResizingHostControl}">
+                ResizingAdornerControl.ResizingHostControl="{Binding #ResizingHost}">
           <!--
           <Rectangle Width="100" Height="100"
                      Canvas.Left="50" Canvas.Top="50"
