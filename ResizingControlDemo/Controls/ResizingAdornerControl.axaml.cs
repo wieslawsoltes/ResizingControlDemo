@@ -79,7 +79,7 @@ public class ResizingAdornerControl : TemplatedControl
         _width = adornedElement.Width;
         _height = adornedElement.Height;
 
-        Console.WriteLine($"DragStarted={direction} {adornedElement.GetType().Name} left={_left} top={_top} width={_width} height={_height}");
+        // Console.WriteLine($"DragStarted={direction} {adornedElement.GetType().Name} left={_left} top={_top} width={_width} height={_height}");
     }
 
     private void DragDelta(object? sender, VectorEventArgs e, DragDirection direction)
@@ -188,14 +188,15 @@ public class ResizingAdornerControl : TemplatedControl
         adornedElement.Width = width;
         adornedElement.Height = height;
 
-        Console.WriteLine($"DragDelta={direction} {adornedElement.GetType().Name} Vector={e.Vector} width={width} height={height}");
+        // Console.WriteLine($"DragDelta={direction} {adornedElement.GetType().Name} Vector={e.Vector} width={width} height={height}");
     }
 
     private void DragCompleted(object? sender, DragDirection direction)
     {
         var thumb = sender as Thumb;
         var adornedElement = AdornedElement as Control;
-        Console.WriteLine($"DragCompleted={direction} {adornedElement.GetType().Name}");
+
+        // Console.WriteLine($"DragCompleted={direction} {adornedElement.GetType().Name}");
     }
 
     // TopLeft
