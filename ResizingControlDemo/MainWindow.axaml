@@ -2,8 +2,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:controls="clr-namespace:ResizingControlDemo.Controls"
-        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="500"
+        xmlns:generic="clr-namespace:System.Collections.Generic;assembly=System.Collections"
+        xmlns:system="clr-namespace:System;assembly=System.Runtime"
+        mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
         Width="700" Height="600"
         WindowStartupLocation="CenterScreen"
         x:Class="ResizingControlDemo.MainWindow"
@@ -13,28 +14,53 @@
     <Style Selector="Canvas.ResizingAdorner > :is(Control)">
       <Setter Property="(AdornerLayer.Adorner)">
         <Template>
-          <controls:ResizingAdornerControl />
+          <ResizingAdornerControl />
         </Template>
       </Setter>
     </Style>
   </Window.Styles>
+  
+  <Grid ColumnDefinitions="200,*">
+    
+    <ToolBox Name="ControlsListBox" 
+             EditorCanvas="EditorCanvas"
+             Grid.Column="0">
+      <ToolBox.ItemsSource>
+        <generic:List x:TypeArguments="x:String">
+          <system:String>TextBlock</system:String>
+          <system:String>Label</system:String>
+          <system:String>TextBox</system:String>
+          <system:String>Button</system:String>
+          <system:String>RadioButton</system:String>
+          <system:String>CheckBox</system:String>
+          <system:String>Rectangle</system:String>
+          <system:String>Ellipse</system:String>
+        </generic:List>
+      </ToolBox.ItemsSource>
+    </ToolBox>
 
-  <Canvas Classes="ResizingAdorner" 
-          Background="WhiteSmoke" 
-          Width="400" Height="400">
-    <Rectangle Width="100" Height="100"
-               Canvas.Left="50" Canvas.Top="50"
-               Fill="Red" />
-    <Ellipse Width="50" Height="50"
-             Canvas.Left="200" Canvas.Top="50"
-             Fill="Green" />
-    <TextBox Width="150" Height="32"
-             Canvas.Left="50" Canvas.Top="200"
-             Text="Sample text" />
+    <Canvas Name="EditorCanvas"
+            Classes="ResizingAdorner" 
+            Background="WhiteSmoke" 
+            Width="400" Height="400"
+            Grid.Column="1">
+      <!--
+      <Rectangle Width="100" Height="100"
+                 Canvas.Left="50" Canvas.Top="50"
+                 Fill="Red" />
+      <Ellipse Width="50" Height="50"
+               Canvas.Left="200" Canvas.Top="50"
+               Fill="Green" />
+      <TextBox Width="150" Height="32"
+               Canvas.Left="50" Canvas.Top="200"
+               Text="Sample text" />
    
-    <Button Width="150" Height="32"
-            Canvas.Left="50" Canvas.Top="300"
-            Content="Click Me!" />
-  </Canvas>
+      <Button Width="150" Height="32"
+              Canvas.Left="50" Canvas.Top="300"
+              Content="Click Me!" />
+              -->
+    </Canvas>
+    
+  </Grid>
 
 </Window>
