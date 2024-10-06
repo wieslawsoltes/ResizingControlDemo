@@ -15,7 +15,7 @@ public class ControlFactory
                 return new TextBlock
                 {
                     Text = "TextBlock",
-                    Width = 100,
+                    Width = 120,
                     Height = 32,
                 };
             }
@@ -24,7 +24,7 @@ public class ControlFactory
                 return new Label
                 {
                     Content = "Label",
-                    Width = 100,
+                    Width = 120,
                     Height = 32,
                 };
             }
@@ -33,7 +33,7 @@ public class ControlFactory
                 return new TextBox
                 {
                     Text = "TextBox",
-                    Width = 100,
+                    Width = 120,
                     Height = 32,
                 };
             }
@@ -42,7 +42,7 @@ public class ControlFactory
                 return new Button
                 {
                     Content = "Button",
-                    Width = 100,
+                    Width = 120,
                     Height = 32,
                 };
             }
@@ -51,7 +51,7 @@ public class ControlFactory
                 return new RadioButton
                 {
                     Content = "RadioButton",
-                    Width = 100,
+                    Width = 120,
                     Height = 32,
                 };
             }
@@ -60,7 +60,7 @@ public class ControlFactory
                 return new CheckBox
                 {
                     Content = "CheckBox",
-                    Width = 100,
+                    Width = 120,
                     Height = 32,
                 };
             }
