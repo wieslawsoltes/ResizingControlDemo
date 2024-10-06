@@ -3,6 +3,8 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
+using Avalonia.Interactivity;
+using Avalonia.VisualTree;
 
 namespace ResizingControlDemo.Controls;
 
@@ -12,6 +14,7 @@ public class ResizingAdornerControl : TemplatedControl
     private double _top;
     private double _width;
     private double _height;
+    private Panel? AdornerPanel;
     private Canvas? AdornerCanvas;
     private Thumb? MoveThumb;
     private Thumb? TopLeftThumb;
@@ -22,16 +25,69 @@ public class ResizingAdornerControl : TemplatedControl
     public static readonly StyledProperty<Visual?> AdornedElementProperty =
         AvaloniaProperty.Register<ResizingAdornerControl, Visual?>(nameof(AdornedElement));
 
+    public static readonly AttachedProperty<bool> IsResizingEnabledProperty =
+        AvaloniaProperty.RegisterAttached<ResizingAdornerControl, Visual, bool>("IsResizingEnabled", true, true);
+
+    public static readonly AttachedProperty<bool> IsResizingVisibleProperty =
+        AvaloniaProperty.RegisterAttached<ResizingAdornerControl, Visual, bool>("IsResizingVisible", false, true);
+
+    public static readonly AttachedProperty<bool> IsResizingSelectedProperty =
+        AvaloniaProperty.RegisterAttached<ResizingAdornerControl, Visual, bool>("IsResizingSelected", false, true);
+  
+    public static readonly AttachedProperty<ResizingHostControl?> ResizingHostControlProperty =
+        AvaloniaProperty.RegisterAttached<ResizingAdornerControl, Visual?, ResizingHostControl?>("ResizingHostControl", null, true);
+
     public Visual? AdornedElement
     {
         get => GetValue(AdornedElementProperty);
         set => SetValue(AdornedElementProperty, value);
     }
+
+    public static bool GetIsResizingEnabled(Visual visual)
+    {
+        return visual.GetValue(IsResizingEnabledProperty);
+    }
+
+    public static void SetIsResizingEnabled(Visual visual, bool isResizingEnabled)
+    {
+        visual.SetValue(IsResizingEnabledProperty, isResizingEnabled);
+    }
+
+    public static bool GetIsResizingVisible(Visual visual)
+    {
+        return visual.GetValue(IsResizingVisibleProperty);
+    }
+
+    public static void SetIsResizingVisible(Visual visual, bool isResizingVisible)
+    {
+        visual.SetValue(IsResizingVisibleProperty, isResizingVisible);
+    }
+
+    public static bool GetIsResizingSelected(Visual visual)
+    {
+        return visual.GetValue(IsResizingSelectedProperty);
+    }
+
+    public static void SetIsResizingSelected(Visual visual, bool isResizingSelected)
+    {
+        visual.SetValue(IsResizingSelectedProperty, isResizingSelected);
+    }
     
+    public static ResizingHostControl? GetResizingHostControl(Visual visual)
+    {
+        return visual.GetValue(ResizingHostControlProperty);
+    }
+
+    public static void SetResizingHostControl(Visual visual, ResizingHostControl? resizingHostControl)
+    {
+        visual.SetValue(ResizingHostControlProperty, resizingHostControl);
+    }
+
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
 
+        AdornerPanel = e.NameScope.Find<Panel>("AdornerPanel");
         AdornerCanvas = e.NameScope.Find<Canvas>("AdornerCanvas");
         MoveThumb = e.NameScope.Find<Thumb>("MoveThumb");
         TopLeftThumb = e.NameScope.Find<Thumb>("TopLeftThumb");
@@ -39,6 +95,8 @@ public class ResizingAdornerControl : TemplatedControl
         BottomLeftThumb = e.NameScope.Find<Thumb>("BottomLeftThumb");
         BottomRightThumb = e.NameScope.Find<Thumb>("BottomRightThumb");
 
+        MoveThumb.AddHandler(PointerPressedEvent, MoveThumb_OnPointerPressed, RoutingStrategies.Tunnel | RoutingStrategies.Bubble);
+        
         MoveThumb.DragStarted += MoveThumb_OnDragStarted;
         MoveThumb.DragDelta += MoveThumb_OnDragDelta;
         MoveThumb.DragCompleted += MoveThumb_OnDragCompleted;
@@ -163,6 +221,17 @@ public class ResizingAdornerControl : TemplatedControl
             }
         }
 
+        // TODO: Clamp width and height between min/max values
+#if false
+        var minHeight = adornedElement.MinHeight;
+        var maxHeight = adornedElement.MaxHeight;
+        var minWidth = adornedElement.MinWidth;
+        var maxWidth = adornedElement.MaxWidth;
+
+        height = Math.Clamp(height, minHeight, maxHeight);
+        width = Math.Clamp(width, minWidth, maxWidth);
+#endif
+
         switch (direction)
         {
             case DragDirection.TopLeft:
@@ -268,6 +337,24 @@ public class ResizingAdornerControl : TemplatedControl
     }
 
     // MoveThumb
+
+    private void MoveThumb_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        var resizingHostControl = this.GetValue(ResizingHostControlProperty);
+
+        var selectedResizingAdornerControl = resizingHostControl.GetValue(ResizingHostControl.SelectedResizingAdornerControlProperty);
+        if (selectedResizingAdornerControl is not null)
+        {
+            selectedResizingAdornerControl.SetCurrentValue(ResizingAdornerControl.IsResizingSelectedProperty, false);
+        }
+
+        SetCurrentValue(IsResizingSelectedProperty, true);
+
+        if (resizingHostControl is not null)
+        {
+            resizingHostControl.SetCurrentValue(ResizingHostControl.SelectedResizingAdornerControlProperty, this);
+        }
+    }
 
     private void MoveThumb_OnDragStarted(object? sender, VectorEventArgs e)
     {

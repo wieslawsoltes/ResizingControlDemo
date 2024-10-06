@@ -11,6 +11,7 @@
         Title="ResizingControlDemo">
   
   <Window.Styles>
+
     <Style Selector="Canvas.ResizingAdorner > :is(Control)">
       <Setter Property="(AdornerLayer.Adorner)">
         <Template>
@@ -18,10 +19,11 @@
         </Template>
       </Setter>
     </Style>
+
   </Window.Styles>
   
   <Grid ColumnDefinitions="200,*">
-    
+
     <ToolBox Name="ControlsListBox" 
              EditorCanvas="EditorCanvas"
              Grid.Column="0">
@@ -39,27 +41,42 @@
       </ToolBox.ItemsSource>
     </ToolBox>
 
-    <Canvas Name="EditorCanvas"
-            Classes="ResizingAdorner" 
-            Background="WhiteSmoke" 
-            Width="400" Height="400"
-            Grid.Column="1">
-      <!--
-      <Rectangle Width="100" Height="100"
-                 Canvas.Left="50" Canvas.Top="50"
-                 Fill="Red" />
-      <Ellipse Width="50" Height="50"
-               Canvas.Left="200" Canvas.Top="50"
-               Fill="Green" />
-      <TextBox Width="150" Height="32"
-               Canvas.Left="50" Canvas.Top="200"
-               Text="Sample text" />
-   
-      <Button Width="150" Height="32"
-              Canvas.Left="50" Canvas.Top="300"
-              Content="Click Me!" />
-              -->
-    </Canvas>
+    <DockPanel Grid.Column="1">
+
+      <CheckBox Name="IsResizingEnabledCheckBox" 
+                Content="IsResizingEnabled"
+                IsChecked="True"
+                HorizontalAlignment="Center"
+                DockPanel.Dock="Bottom"/>
+
+      <ResizingHostControl Name="ResizingHostControl">
+
+        <Canvas Name="EditorCanvas"
+                Classes="ResizingAdorner" 
+                Background="WhiteSmoke" 
+                Width="400" Height="400"
+                ResizingAdornerControl.IsResizingEnabled="{Binding #IsResizingEnabledCheckBox.IsChecked}"
+                ResizingAdornerControl.ResizingHostControl="{Binding #ResizingHostControl}">
+          <!--
+          <Rectangle Width="100" Height="100"
+                     Canvas.Left="50" Canvas.Top="50"
+                     Fill="Red" />
+          <Ellipse Width="50" Height="50"
+                   Canvas.Left="200" Canvas.Top="50"
+                   Fill="Green" />
+          <TextBox Width="150" Height="32"
+                   Canvas.Left="50" Canvas.Top="200"
+                   Text="Sample text" />
+       
+          <Button Width="150" Height="32"
+                  Canvas.Left="50" Canvas.Top="300"
+                  Content="Click Me!" />
+          -->
+        </Canvas>
+
+      </ResizingHostControl>
+
+    </DockPanel>
     
   </Grid>
 
