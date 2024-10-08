@@ -110,7 +110,8 @@
             <Panel Width="400" Height="400"
                    Background="{DynamicResource BackgroundBrush}">
               <GridControl Width="400" Height="400"
-                           ClipToBounds="False"/>
+                           ClipToBounds="False"
+                           IsVisible="{Binding #IsResizingEnabledCheckBox.IsChecked}" />
               <Canvas Name="EditorCanvas"
                       Classes="ResizingAdorner" 
                       Background="Transparent" 
