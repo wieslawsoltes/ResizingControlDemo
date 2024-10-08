@@ -27,10 +27,14 @@ public class ToolBoxItem : ListBoxItem
     {
         if (sender is Control { DataContext: string typeName })
         {
-            _start = e.GetPosition(this);
-            
-            _typeName = typeName;
-            _isPressed = true;
+            if (Parent is ToolBox { EditorCanvas: { } editorCanvas })
+            {
+                var adornerLayer = AdornerLayer.GetAdornerLayer(editorCanvas);
+                _start = e.GetPosition(adornerLayer);
+
+                _typeName = typeName;
+                _isPressed = true;
+            }
         }
     }
     
@@ -55,8 +59,14 @@ public class ToolBoxItem : ListBoxItem
 
                     editorCanvas.Children.Add(control);
 
-                    Canvas.SetLeft(control, point.X);
-                    Canvas.SetTop(control, point.Y);
+                    var left = point.X;
+                    var top = point.Y;
+#if true
+                    left = ResizingAdornerControl.Snap(left, 8.0);
+                    top = ResizingAdornerControl.Snap(top, 8.0);
+#endif
+                    Canvas.SetLeft(control, left);
+                    Canvas.SetTop(control, top);
                 }
             }
         }
@@ -73,19 +83,20 @@ public class ToolBoxItem : ListBoxItem
             return;
         }
 
-        if (_control is null)
-        {
-            var move = e.GetPosition(this);
-            var delta = _start - move;
-            if (Math.Abs(delta.X) < 3 && Math.Abs(delta.Y) < 3)
-            {
-                return;
-            }
-        }
-
         if (Parent is ToolBox { EditorCanvas: { } editorCanvas })
         {
             var adornerLayer = AdornerLayer.GetAdornerLayer(editorCanvas);
+
+            if (_control is null)
+            {
+                var move = e.GetPosition(adornerLayer);
+                var delta = _start - move;
+                if (Math.Abs(delta.X) < 3 && Math.Abs(delta.Y) < 3)
+                {
+                    return;
+                }
+            }
+
             var point = e.GetPosition(adornerLayer);
 
             if (_control is null)
@@ -93,9 +104,15 @@ public class ToolBoxItem : ListBoxItem
                 _control = ControlFactory.CreateControl(_typeName);
                 adornerLayer.Children.Add(_control);
             }
-            
-            Canvas.SetLeft(_control, point.X);
-            Canvas.SetTop(_control, point.Y);
+
+            var left = point.X;
+            var top = point.Y;
+#if true
+            left = ResizingAdornerControl.Snap(left, 8.0);
+            top = ResizingAdornerControl.Snap(top, 8.0);
+#endif
+            Canvas.SetLeft(_control, left);
+            Canvas.SetTop(_control, top);
         }
     }
 }

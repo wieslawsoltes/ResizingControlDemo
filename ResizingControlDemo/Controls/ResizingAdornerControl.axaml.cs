@@ -83,6 +83,17 @@ public class ResizingAdornerControl : TemplatedControl
         visual.SetValue(ResizingHostControlProperty, resizingHostControl);
     }
 
+    public static double Snap(double value, double snap)
+    {
+        if (snap == 0.0)
+        {
+            return value;
+        }
+        var c = value % snap;
+        var r = c >= snap / 2.0 ? value + snap - c : value - c;
+        return r;
+    }
+
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
@@ -231,7 +242,14 @@ public class ResizingAdornerControl : TemplatedControl
         height = Math.Clamp(height, minHeight, maxHeight);
         width = Math.Clamp(width, minWidth, maxWidth);
 #endif
-
+        
+#if true
+        left = Snap(left, 8.0);
+        top = Snap(top, 8.0);
+        width = Snap(width, 8.0);
+        height = Snap(height, 8.0);
+#endif
+        
         switch (direction)
         {
             case DragDirection.TopLeft:
@@ -251,7 +269,7 @@ public class ResizingAdornerControl : TemplatedControl
             default:
                 throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
         }
-        
+
         Canvas.SetLeft(adornedElement, left);
         Canvas.SetTop(adornedElement, top);
         adornedElement.Width = width;
