@@ -16,11 +16,5 @@
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
         <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.1.0"/>
     </ItemGroup>
-
-    <ItemGroup>
-      <Compile Update="Controls\ResizingAdornerControl.axaml.cs">
-        <DependentUpon>ResizingAdornerControl.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-    </ItemGroup>
+  
 </Project>
