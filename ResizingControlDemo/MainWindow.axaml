@@ -5,12 +5,29 @@
         xmlns:generic="clr-namespace:System.Collections.Generic;assembly=System.Collections"
         xmlns:system="clr-namespace:System;assembly=System.Runtime"
         mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
-        Width="700" Height="600"
+        Width="800" Height="600"
         WindowStartupLocation="CenterScreen"
+        ExtendClientAreaTitleBarHeightHint="30"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
         x:Class="ResizingControlDemo.MainWindow"
-        Title="ResizingControlDemo">
+        Title="ResizingControlDemo"
+        Name="ResizingControlMainWindow">
+  
+  <Window.Resources>
+    <SolidColorBrush x:Key="BackgroundBrush" Color="#ECE9DA" />
+    <SolidColorBrush x:Key="TitleTabBackgroundBrush" Color="#2353DF" />
+    <SolidColorBrush x:Key="TitleTabForegroundBrush" Color="#FFFFFF" />
+  </Window.Resources>
   
   <Window.Styles>
+    
+    <Style Selector="TitleBar">
+      <Setter Property="HorizontalAlignment" Value="Right" />
+      <Setter Property="IsVisible" Value="True" />
+      <Setter Property="Background" Value="{DynamicResource TitleTabBackgroundBrush}" />
+      <Setter Property="Foreground" Value="{DynamicResource TitleTabForegroundBrush}" />
+    </Style>
 
     <Style Selector="Canvas.ResizingAdorner > :is(Control)">
       <Setter Property="(AdornerLayer.Adorner)">
@@ -20,13 +37,28 @@
       </Setter>
     </Style>
 
+
   </Window.Styles>
   
   <Grid ColumnDefinitions="200,*">
 
-    <ToolBox Name="ControlsListBox" 
-             EditorCanvas="EditorCanvas"
-             Grid.Column="0">
+    <DockPanel Grid.Column="0">
+      
+      <Border Background="{DynamicResource TitleTabBackgroundBrush}"
+              Height="30"
+              IsHitTestVisible="False"
+              DockPanel.Dock="Top">
+        <TextBlock Text="Project 1 - Fluent Basic" 
+                   Foreground="{DynamicResource TitleTabForegroundBrush}"
+                   FontSize="14"
+                   FontWeight="Bold"
+                   VerticalAlignment="Center"
+                   Margin="6" />
+      </Border>
+
+      <ToolBox Name="ControlsListBox" 
+               Background="{DynamicResource BackgroundBrush}"
+               EditorCanvas="EditorCanvas">
       <ToolBox.ItemsSource>
         <generic:List x:TypeArguments="x:String">
           <system:String>TextBlock</system:String>
@@ -40,39 +72,71 @@
         </generic:List>
       </ToolBox.ItemsSource>
     </ToolBox>
+    </DockPanel>
 
     <DockPanel Grid.Column="1">
 
+      <Border Background="{DynamicResource TitleTabBackgroundBrush}"
+              Height="30"
+              IsHitTestVisible="False"
+              DockPanel.Dock="Top" />
+
       <CheckBox Name="IsResizingEnabledCheckBox" 
-                Content="IsResizingEnabled"
+                Content="Edit Mode"
                 IsChecked="True"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Right"
+                Margin="6"
                 DockPanel.Dock="Bottom"/>
 
       <ResizingHostControl Name="ResizingHost">
 
-        <Canvas Name="EditorCanvas"
-                Classes="ResizingAdorner" 
-                Background="WhiteSmoke" 
-                Width="400" Height="400"
-                ResizingAdornerControl.IsResizingEnabled="{Binding #IsResizingEnabledCheckBox.IsChecked}"
-                ResizingAdornerControl.ResizingHostControl="{Binding #ResizingHost}">
-          <!--
-          <Rectangle Width="100" Height="100"
-                     Canvas.Left="50" Canvas.Top="50"
-                     Fill="Red" />
-          <Ellipse Width="50" Height="50"
-                   Canvas.Left="200" Canvas.Top="50"
-                   Fill="Green" />
-          <TextBox Width="150" Height="32"
-                   Canvas.Left="50" Canvas.Top="200"
-                   Text="Sample text" />
-       
-          <Button Width="150" Height="32"
-                  Canvas.Left="50" Canvas.Top="300"
-                  Content="Click Me!" />
-          -->
-        </Canvas>
+        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+          <Border
+            Background="{DynamicResource TitleTabBackgroundBrush}"
+            Width="408" Height="30"
+            CornerRadius="6, 6, 0, 0"
+            DockPanel.Dock="Top">
+            <TextBlock Text="Form1" 
+                       Foreground="{DynamicResource TitleTabForegroundBrush}"
+                       FontSize="14"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"
+                       Margin="6" />
+          </Border>
+          <Border BorderBrush="{DynamicResource TitleTabBackgroundBrush}"
+                  BorderThickness="6"
+                  Width="408" Height="408">
+
+            <Panel Width="400" Height="400"
+                   Background="{DynamicResource BackgroundBrush}">
+              <GridControl Width="400" Height="400"
+                           ClipToBounds="False"/>
+              <Canvas Name="EditorCanvas"
+                      Classes="ResizingAdorner" 
+                      Background="Transparent" 
+                      Width="400" Height="400"
+                      ResizingAdornerControl.IsResizingEnabled="{Binding #IsResizingEnabledCheckBox.IsChecked}"
+                      ResizingAdornerControl.ResizingHostControl="{Binding #ResizingHost}">
+                <!--
+                <Rectangle Width="100" Height="100"
+                           Canvas.Left="50" Canvas.Top="50"
+                           Fill="Red" />
+                <Ellipse Width="50" Height="50"
+                         Canvas.Left="200" Canvas.Top="50"
+                         Fill="Green" />
+                <TextBox Width="150" Height="32"
+                         Canvas.Left="50" Canvas.Top="200"
+                         Text="Sample text" />
+             
+                <Button Width="150" Height="32"
+                        Canvas.Left="50" Canvas.Top="300"
+                        Content="Click Me!" />
+                -->
+              </Canvas>
+            </Panel>
+              
+          </Border>       
+        </DockPanel>
 
       </ResizingHostControl>
 
