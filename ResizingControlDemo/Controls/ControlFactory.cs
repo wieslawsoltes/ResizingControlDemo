@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
+using Avalonia.Layout;
 using Avalonia.Media;
 
 namespace ResizingControlDemo.Controls;
@@ -16,7 +17,7 @@ public class ControlFactory
                 {
                     Text = "TextBlock",
                     Width = 120,
-                    Height = 32,
+                    Height = 24,
                 };
             }
             case "Label":
@@ -24,6 +25,8 @@ public class ControlFactory
                 return new Label
                 {
                     Content = "Label",
+                    HorizontalContentAlignment = HorizontalAlignment.Left,
+                    VerticalContentAlignment = VerticalAlignment.Center,
                     Width = 120,
                     Height = 32,
                 };
@@ -42,6 +45,8 @@ public class ControlFactory
                 return new Button
                 {
                     Content = "Button",
+                    HorizontalContentAlignment = HorizontalAlignment.Center,
+                    VerticalContentAlignment = VerticalAlignment.Center,
                     Width = 120,
                     Height = 32,
                 };
@@ -51,6 +56,7 @@ public class ControlFactory
                 return new RadioButton
                 {
                     Content = "RadioButton",
+                    VerticalAlignment = VerticalAlignment.Center,
                     Width = 120,
                     Height = 32,
                 };
@@ -60,6 +66,7 @@ public class ControlFactory
                 return new CheckBox
                 {
                     Content = "CheckBox",
+                    VerticalAlignment = VerticalAlignment.Center,
                     Width = 120,
                     Height = 32,
                 };
