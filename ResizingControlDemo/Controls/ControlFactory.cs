@@ -76,8 +76,8 @@ public class ControlFactory
                 return new Rectangle
                 {
                     Fill = Brushes.Gray,
-                    Width = 50,
-                    Height = 50,
+                    Width = 48,
+                    Height = 48,
                 };
             }
             case "Ellipse":
@@ -85,8 +85,8 @@ public class ControlFactory
                 return new Ellipse
                 {
                     Fill = Brushes.Gray,
-                    Width = 50,
-                    Height = 50,
+                    Width = 48,
+                    Height = 48,
                 };
             }
         }
