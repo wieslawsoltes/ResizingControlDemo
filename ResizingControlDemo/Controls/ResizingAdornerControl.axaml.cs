@@ -231,7 +231,14 @@ public class ResizingAdornerControl : TemplatedControl
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
         }
-
+  
+#if true
+        left = Snap(left, 8.0);
+        top = Snap(top, 8.0);
+        width = Snap(width, 8.0);
+        height = Snap(height, 8.0);
+#endif
+     
         // TODO: Clamp width and height between min/max values
 #if false
         var minHeight = adornedElement.MinHeight;
@@ -242,14 +249,7 @@ public class ResizingAdornerControl : TemplatedControl
         height = Math.Clamp(height, minHeight, maxHeight);
         width = Math.Clamp(width, minWidth, maxWidth);
 #endif
-        
-#if true
-        left = Snap(left, 8.0);
-        top = Snap(top, 8.0);
-        width = Snap(width, 8.0);
-        height = Snap(height, 8.0);
-#endif
-        
+
         switch (direction)
         {
             case DragDirection.TopLeft:
