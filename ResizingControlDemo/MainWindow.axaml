@@ -67,6 +67,7 @@
           <system:String>Button</system:String>
           <system:String>RadioButton</system:String>
           <system:String>CheckBox</system:String>
+          <system:String>GroupBox</system:String>
           <system:String>Rectangle</system:String>
           <system:String>Ellipse</system:String>
         </generic:List>

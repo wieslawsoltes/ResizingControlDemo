@@ -71,6 +71,29 @@ public class ControlFactory
                     Height = 32,
                 };
             }
+            case "GroupBox":
+            {
+                return new GroupBox
+                {
+                    Header = "GroupBox",
+                    Width = 140,
+                    Height = 92,
+                    Content = new StackPanel
+                    {
+                        Children =
+                        {
+                            new RadioButton
+                            {
+                                Content = "RadioButton1",
+                            },
+                            new RadioButton
+                            {
+                                Content = "RadioButton2",
+                            },
+                        }
+                    }
+                };
+            }
             case "Rectangle":
             {
                 return new Rectangle
