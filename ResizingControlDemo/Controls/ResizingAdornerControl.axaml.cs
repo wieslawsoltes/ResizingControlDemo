@@ -154,10 +154,34 @@ public class ResizingAdornerControl : TemplatedControl
         var thumb = sender as Thumb;
         var adornedElement = AdornedElement as Control;
 
-        _left = Canvas.GetLeft(adornedElement);
-        _top = Canvas.GetTop(adornedElement);
-        _width = adornedElement.Width;
-        _height = adornedElement.Height;
+        var left = Canvas.GetLeft(adornedElement);
+        if (double.IsNaN(left))
+        {
+            left = adornedElement.Bounds.Left;
+        }
+
+        var top = Canvas.GetTop(adornedElement);
+        if (double.IsNaN(top))
+        {
+            top = adornedElement.Bounds.Top;
+        }
+
+        var width = adornedElement.Width;
+        if (double.IsNaN(width))
+        {
+            width = adornedElement.Bounds.Width;
+        }
+        
+        var height = adornedElement.Height;
+        if (double.IsNaN(height))
+        {
+            height = adornedElement.Bounds.Height;
+        }
+
+        _left = left;
+        _top = top;
+        _width = width;
+        _height = height;
 
         // Console.WriteLine($"DragStarted={direction} {adornedElement.GetType().Name} left={_left} top={_top} width={_width} height={_height}");
     }
