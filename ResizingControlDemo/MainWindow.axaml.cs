@@ -2,6 +2,7 @@ using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Chrome;
+using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -52,7 +53,15 @@ public partial class MainWindow : Window
             {
                 if (selectedResizingAdornerControl.AdornedElement is Control control)
                 {
-                    EditorCanvas.Children.Remove(control);
+                    if (control.Parent is Panel panel)
+                    {
+                        panel.Children.Remove(control);
+                    }
+
+                    if (control.Parent is ContentControl contentControl)
+                    {
+                        contentControl.Content = null;
+                    }
                 }
             }
         }
