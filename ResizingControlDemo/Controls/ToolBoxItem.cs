@@ -2,8 +2,10 @@ using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Controls.Shapes;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using Avalonia.VisualTree;
 
 namespace ResizingControlDemo.Controls;
 
@@ -57,16 +59,7 @@ public class ToolBoxItem : ListBoxItem
                 {
                     var canvasPoint = e.GetPosition(editorCanvas);
 
-                    editorCanvas.Children.Add(control);
-
-                    var left = canvasPoint.X;
-                    var top = canvasPoint.Y;
-#if true
-                    left = ResizingAdornerControl.Snap(left, 8.0);
-                    top = ResizingAdornerControl.Snap(top, 8.0);
-#endif    
-                    Canvas.SetLeft(control, left);
-                    Canvas.SetTop(control, top);
+                    DropIntoCanvas(editorCanvas, canvasPoint, control);
                 }
             }
         }
@@ -76,6 +69,76 @@ public class ToolBoxItem : ListBoxItem
         _isPressed = true;
     }
 
+    public static void InsertToCanvas(Canvas canvas, Control control, Point point)
+    {
+        canvas.Children.Add(control);
+                        
+        var left = point.X;
+        var top = point.Y;
+#if true
+        left = ResizingAdornerControl.Snap(left, 8.0);
+        top = ResizingAdornerControl.Snap(top, 8.0);
+#endif    
+        Canvas.SetLeft(control, left);
+        Canvas.SetTop(control, top);
+    }
+
+    public static void DropIntoCanvas(Canvas editorCanvas, Point canvasPoint, Control control)
+    {
+        var isAddedToChild = false;
+                    
+        foreach (var child in editorCanvas.Children)
+        {
+            var childPoint = editorCanvas.TranslatePoint(canvasPoint, child).Value;
+
+            if (child is Panel panel 
+                && panel.GetTransformedBounds().Value.Bounds.Contains(childPoint))
+            {
+                if (panel is Canvas canvas)
+                {
+                    InsertToCanvas(canvas, control, childPoint);
+                    isAddedToChild = true;
+                    break;
+                }
+
+                if (control is not Shape)
+                {
+                    control.Width = double.NaN;
+                    control.Height = double.NaN;
+                }
+
+                panel.Children.Add(control);
+                isAddedToChild = true;
+
+                break;
+            }
+
+            if (child is ContentControl contentControl 
+                && child.GetTransformedBounds().Value.Bounds.Contains(childPoint))
+            {
+                if (control is not Shape)
+                {
+                    control.Width = double.NaN;
+                    control.Height = double.NaN;
+                }
+                
+                contentControl.Content = control;
+                isAddedToChild = true;
+                break;
+            }
+        }
+
+        if (!isAddedToChild)
+        {
+            if (control is Canvas canvas)
+            {
+                canvas.Classes.Add("ResizingAdorner");
+            }
+
+            InsertToCanvas(editorCanvas, control, canvasPoint);
+        }
+    }
+    
     private void ListBoxItemOnPointerMoved(object? sender, PointerEventArgs e)
     {
         if (!_isPressed || _typeName is null)
