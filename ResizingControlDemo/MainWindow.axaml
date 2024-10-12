@@ -29,6 +29,7 @@
       <Setter Property="Foreground" Value="{DynamicResource TitleTabForegroundBrush}" />
     </Style>
 
+    <!-- TODO: Remove
     <Style Selector="Canvas.ResizingAdorner > :is(Control):not(ResizingAdornerControl)">
       <Setter Property="(AdornerLayer.Adorner)">
         <Template>
@@ -36,6 +37,7 @@
         </Template>
       </Setter>
     </Style>
+    -->
 
 
   </Window.Styles>

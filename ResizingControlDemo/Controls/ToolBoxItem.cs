@@ -59,6 +59,11 @@ public class ToolBoxItem : ListBoxItem
                 {
                     var canvasPoint = e.GetPosition(editorCanvas);
 
+                    AdornerLayer.SetAdorner(control, new ResizingAdornerControl
+                    {
+                        EditorCanvas = editorCanvas
+                    });
+
                     DropIntoCanvas(editorCanvas, canvasPoint, control);
                 }
             }
@@ -130,10 +135,11 @@ public class ToolBoxItem : ListBoxItem
 
         if (!isAddedToChild)
         {
-            if (control is Canvas canvas)
-            {
-                canvas.Classes.Add("ResizingAdorner");
-            }
+            // TODO: Remove
+            // if (control is Canvas canvas)
+            // {
+            //     canvas.Classes.Add("ResizingAdorner");
+            // }
 
             InsertToCanvas(editorCanvas, control, canvasPoint);
         }
