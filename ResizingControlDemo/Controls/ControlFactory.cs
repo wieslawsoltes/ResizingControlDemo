@@ -112,6 +112,42 @@ public class ControlFactory
                     Height = 48,
                 };
             }
+            case "StackPanel":
+            {
+                return new StackPanel
+                {
+                    Background = Brushes.LightGray,
+                    Width = 120,
+                    Height = 160,
+                };
+            }
+            case "WrapPanel":
+            {
+                return new WrapPanel
+                {
+                    Background = Brushes.LightGray,
+                    Width = 120,
+                    Height = 160,
+                };
+            }
+            case "DockPanel":
+            {
+                return new DockPanel
+                {
+                    Background = Brushes.LightGray,
+                    Width = 120,
+                    Height = 160,
+                };
+            }
+            case "Canvas":
+            {
+                return new Canvas
+                {
+                    Background = Brushes.LightGray,
+                    Width = 240,
+                    Height = 240,
+                };
+            }
         }
 
         return null;

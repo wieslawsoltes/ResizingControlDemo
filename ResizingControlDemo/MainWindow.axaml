@@ -70,6 +70,10 @@
           <system:String>GroupBox</system:String>
           <system:String>Rectangle</system:String>
           <system:String>Ellipse</system:String>
+          <system:String>StackPanel</system:String>
+          <system:String>WrapPanel</system:String>
+          <system:String>DockPanel</system:String>
+          <system:String>Canvas</system:String>
         </generic:List>
       </ToolBox.ItemsSource>
     </ToolBox>
