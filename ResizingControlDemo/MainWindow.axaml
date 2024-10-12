@@ -122,23 +122,7 @@
                       Background="Transparent" 
                       Width="400" Height="400"
                       ResizingAdornerControl.IsResizingEnabled="{Binding #IsResizingEnabledCheckBox.IsChecked}"
-                      ResizingAdornerControl.ResizingHostControl="{Binding #ResizingHost}">
-                <!--
-                <Rectangle Width="100" Height="100"
-                           Canvas.Left="50" Canvas.Top="50"
-                           Fill="Red" />
-                <Ellipse Width="50" Height="50"
-                         Canvas.Left="200" Canvas.Top="50"
-                         Fill="Green" />
-                <TextBox Width="150" Height="32"
-                         Canvas.Left="50" Canvas.Top="200"
-                         Text="Sample text" />
-             
-                <Button Width="150" Height="32"
-                        Canvas.Left="50" Canvas.Top="300"
-                        Content="Click Me!" />
-                -->
-              </Canvas>
+                      ResizingAdornerControl.ResizingHostControl="{Binding #ResizingHost}" />
             </Panel>
               
           </Border>       
