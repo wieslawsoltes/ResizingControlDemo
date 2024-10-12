@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
@@ -296,6 +297,103 @@ public class ResizingAdornerControl : TemplatedControl
         // Console.WriteLine($"DragCompleted={direction} {adornedElement.GetType().Name}");
     }
 
+    private void Drop(object? sender, VectorEventArgs e)
+    {
+        var thumb = sender as Thumb;
+        var control = AdornedElement as Control;
+
+        var editorCanvas = EditorCanvas;
+        if (editorCanvas is null)
+        {
+            return;
+        }
+ 
+        var canvasPoint = this.TranslatePoint(new Point(e.Vector.X, e.Vector.Y), editorCanvas).Value;
+        var isAddedToChild = false;
+
+        foreach (var child in editorCanvas.Children)
+        {
+            if (child == control)
+            {
+                continue;
+            }
+
+            var childPoint = editorCanvas.TranslatePoint(canvasPoint, child).Value;
+
+            if (child is Panel panel
+                && panel.GetTransformedBounds().Value.Bounds.Contains(childPoint))
+            {
+                if (control.Parent == panel)
+                {
+                    isAddedToChild = true;
+                    break;
+                }
+
+                if (panel is Canvas)
+                {
+                    var left = Canvas.GetLeft(control);
+                    var top = Canvas.GetTop(control);
+                    var position = (control.Parent as Visual).TranslatePoint(new Point(left, top), panel).Value;
+                    Canvas.SetLeft(control, position.X);
+                    Canvas.SetTop(control, position.Y);
+                }
+                           
+                if (control.Parent is Panel childPanel)
+                {
+                    childPanel.Children.Remove(control);
+                }
+
+                panel.Children.Add(control);
+                isAddedToChild = true;
+
+                break;
+            }
+
+            if (child is ContentControl contentControl
+                && child.GetTransformedBounds().Value.Bounds.Contains(childPoint))
+            {
+                if (control.Parent == contentControl)
+                {
+                    isAddedToChild = true;
+                    break;
+                }
+                    
+                if (control.Parent is ContentControl childContentControl)
+                {
+                    childContentControl.Content = null;
+                }
+
+                contentControl.Content = control;
+                isAddedToChild = true;
+                    
+                break;
+            }
+        }
+
+        if (!isAddedToChild 
+            && control.Parent != editorCanvas 
+            && editorCanvas.GetTransformedBounds().Value.Bounds.Contains(canvasPoint))
+        {
+            var left = Canvas.GetLeft(control);
+            var top = Canvas.GetTop(control);
+            var position = (control.Parent as Visual).TranslatePoint(new Point(left, top), editorCanvas).Value;
+            Canvas.SetLeft(control, position.X);
+            Canvas.SetTop(control, position.Y);
+
+            if (control.Parent is Panel childPanel)
+            {
+                childPanel.Children.Remove(control);
+            }
+                    
+            if (control.Parent is ContentControl childContentControl)
+            {
+                childContentControl.Content = null;
+            }
+ 
+            editorCanvas.Children.Add(control);
+        }
+    }
+
     // TopLeft
     
     private void TopLeftThumb_OnDragStarted(object? sender, VectorEventArgs e)
@@ -397,5 +495,7 @@ public class ResizingAdornerControl : TemplatedControl
     private void MoveThumb_OnDragCompleted(object? sender, VectorEventArgs e)
     {
         DragCompleted(sender, DragDirection.Move);
+
+        Drop(sender, e);
     }
 }
