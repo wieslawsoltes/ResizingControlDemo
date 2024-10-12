@@ -29,10 +29,10 @@
       <Setter Property="Foreground" Value="{DynamicResource TitleTabForegroundBrush}" />
     </Style>
 
-    <Style Selector="Canvas.ResizingAdorner > :is(Control)">
+    <Style Selector="Canvas.ResizingAdorner > :is(Control):not(ResizingAdornerControl)">
       <Setter Property="(AdornerLayer.Adorner)">
         <Template>
-          <ResizingAdornerControl />
+          <ResizingAdornerControl EditorCanvas="{Binding #EditorCanvas}" />
         </Template>
       </Setter>
     </Style>
@@ -117,7 +117,7 @@
               <GridControl Width="400" Height="400"
                            ClipToBounds="False"
                            IsVisible="{Binding #IsResizingEnabledCheckBox.IsChecked}" />
-              <Canvas Name="EditorCanvas"
+              <Canvas x:Name="EditorCanvas"
                       Classes="ResizingAdorner" 
                       Background="Transparent" 
                       Width="400" Height="400"

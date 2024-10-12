@@ -22,6 +22,9 @@ public class ResizingAdornerControl : TemplatedControl
     private Thumb? BottomLeftThumb;
     private Thumb? BottomRightThumb;
 
+    public static readonly StyledProperty<Canvas?> EditorCanvasProperty = 
+        AvaloniaProperty.Register<ResizingAdornerControl, Canvas?>(nameof(EditorCanvas));
+
     public static readonly StyledProperty<Visual?> AdornedElementProperty =
         AvaloniaProperty.Register<ResizingAdornerControl, Visual?>(nameof(AdornedElement));
 
@@ -36,6 +39,13 @@ public class ResizingAdornerControl : TemplatedControl
   
     public static readonly AttachedProperty<ResizingHostControl?> ResizingHostControlProperty =
         AvaloniaProperty.RegisterAttached<ResizingAdornerControl, Visual?, ResizingHostControl?>("ResizingHostControl", null, true);
+
+    [ResolveByName]
+    public Canvas? EditorCanvas
+    {
+        get => GetValue(EditorCanvasProperty);
+        set => SetValue(EditorCanvasProperty, value);
+    }
 
     public Visual? AdornedElement
     {
