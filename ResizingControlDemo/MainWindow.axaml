@@ -4,8 +4,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:generic="clr-namespace:System.Collections.Generic;assembly=System.Collections"
         xmlns:system="clr-namespace:System;assembly=System.Runtime"
-        mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
-        Width="800" Height="600"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="600"
+        Width="1000" Height="600"
         WindowStartupLocation="CenterScreen"
         ExtendClientAreaTitleBarHeightHint="30"
         ExtendClientAreaToDecorationsHint="True"
@@ -39,10 +39,9 @@
     </Style>
     -->
 
-
   </Window.Styles>
   
-  <Grid ColumnDefinitions="200,*">
+  <Grid ColumnDefinitions="200,*,200">
 
     <DockPanel Grid.Column="0">
       
@@ -133,7 +132,38 @@
       </ResizingHostControl>
 
     </DockPanel>
+ 
+    <DockPanel Grid.Column="2">
+
+      <Border Background="{DynamicResource TitleTabBackgroundBrush}"
+              Height="30"
+              IsHitTestVisible="False"
+              DockPanel.Dock="Top" />
+
+      <Grid ColumnDefinitions="*,Auto"
+            RowDefinitions="Auto,Auto"
+            Background="{DynamicResource BackgroundBrush}">
+        <!-- Foreground -->
+        <Label Content="Foreground"
+               IsVisible="{Binding #ForegroundColorPicker.IsVisible}"
+               VerticalContentAlignment="Center"
+               Grid.Row="0"
+               Grid.Column="0" />
+        <ColorPicker Name="ForegroundColorPicker"
+                     Grid.Row="0"
+                     Grid.Column="1" />
+        <!-- Background -->
+        <Label Content="Background"
+               IsVisible="{Binding #BackgroundColorPicker.IsVisible}"
+               VerticalContentAlignment="Center"
+               Grid.Row="1"
+               Grid.Column="0" />
+        <ColorPicker Name="BackgroundColorPicker"
+                     Grid.Row="1"
+                     Grid.Column="1" />
+      </Grid>
+      </DockPanel>
     
-  </Grid>
+    </Grid>
 
 </Window>
