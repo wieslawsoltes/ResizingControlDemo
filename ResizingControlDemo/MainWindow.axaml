@@ -15,8 +15,8 @@
         Name="ResizingControlMainWindow">
   
   <Window.Resources>
-    <SolidColorBrush x:Key="BackgroundBrush" Color="#ECE9DA" />
-    <SolidColorBrush x:Key="TitleTabBackgroundBrush" Color="#2353DF" />
+    <SolidColorBrush x:Key="BackgroundBrush" Color="WhiteSmoke" />
+    <SolidColorBrush x:Key="TitleTabBackgroundBrush" Color="Gray" />
     <SolidColorBrush x:Key="TitleTabForegroundBrush" Color="#FFFFFF" />
   </Window.Resources>
   
@@ -99,7 +99,7 @@
         <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
           <Border
             Background="{DynamicResource TitleTabBackgroundBrush}"
-            Width="408" Height="30"
+            Width="424" Height="24"
             CornerRadius="6, 6, 0, 0"
             DockPanel.Dock="Top">
             <TextBlock Text="Form1" 
@@ -107,21 +107,26 @@
                        FontSize="14"
                        FontWeight="Bold"
                        VerticalAlignment="Center"
-                       Margin="6" />
+                       Margin="6,6,6,3" />
           </Border>
           <Border BorderBrush="{DynamicResource TitleTabBackgroundBrush}"
                   BorderThickness="6"
-                  Width="408" Height="408">
+                  Width="424" Height="424">
 
-            <Panel Width="400" Height="400"
+            <Panel Width="416" Height="416"
                    Background="{DynamicResource BackgroundBrush}">
-              <GridControl Width="400" Height="400"
+              <!--
+              <GridControl Width="416" Height="416"
                            ClipToBounds="False"
                            IsVisible="{Binding #IsResizingEnabledCheckBox.IsChecked}" />
+              -->
+              <GridLinesControl Width="416" Height="416"
+                                ClipToBounds="False"
+                                IsVisible="{Binding #IsResizingEnabledCheckBox.IsChecked}" />
               <Canvas x:Name="EditorCanvas"
                       Classes="ResizingAdorner" 
                       Background="Transparent" 
-                      Width="400" Height="400"
+                      Width="416" Height="416"
                       ResizingAdornerControl.IsResizingEnabled="{Binding #IsResizingEnabledCheckBox.IsChecked}"
                       ResizingAdornerControl.ResizingHostControl="{Binding #ResizingHost}" />
             </Panel>
