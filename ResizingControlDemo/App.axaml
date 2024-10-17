@@ -1,17 +1,12 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="ResizingControlDemo.App"
-             RequestedThemeVariant="{x:Static ClassicTheme.Classic}">
-  <!-- RequestedThemeVariant="Default" -->
+             RequestedThemeVariant="Default">
 
   <Application.Styles>
 
-    <!-- <FluentTheme /> -->
-    <!-- <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" /> -->
-
-    <ClassicTheme />
-    <StyleInclude Source="avares://Classic.Avalonia.Theme.DataGrid/Classic.axaml"/>
-    <StyleInclude Source="avares://Classic.Avalonia.Theme.ColorPicker/Classic.axaml"/>
+    <FluentTheme />
+    <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
 
     <StyleInclude Source="/Controls/ResizingAdornerControl.axaml" />
     <StyleInclude Source="/Controls/GroupBox.axaml" />
