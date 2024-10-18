@@ -96,6 +96,7 @@ public class ToolBoxItem : ListBoxItem
         {
             var childPoint = editorCanvas.TranslatePoint(canvasPoint, child).Value;
 
+            // Panel.Children
             if (child is Panel panel 
                 && panel.GetTransformedBounds().Value.Bounds.Contains(childPoint))
             {
@@ -118,6 +119,7 @@ public class ToolBoxItem : ListBoxItem
                 break;
             }
 
+            // ContentControl.Content
             if (child is ContentControl contentControl 
                 && child.GetTransformedBounds().Value.Bounds.Contains(childPoint))
             {
@@ -128,6 +130,21 @@ public class ToolBoxItem : ListBoxItem
                 }
                 
                 contentControl.Content = control;
+                isAddedToChild = true;
+                break;
+            }
+            
+            // Decorator.Child
+            if (child is Decorator decorator 
+                && child.GetTransformedBounds().Value.Bounds.Contains(childPoint))
+            {
+                if (control is not Shape)
+                {
+                    control.Width = double.NaN;
+                    control.Height = double.NaN;
+                }
+                
+                decorator.Child = control;
                 isAddedToChild = true;
                 break;
             }
