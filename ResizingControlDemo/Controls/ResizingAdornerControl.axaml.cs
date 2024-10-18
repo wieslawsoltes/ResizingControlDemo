@@ -344,6 +344,7 @@ public class ResizingAdornerControl : TemplatedControl
 
             var childPoint = editorCanvas.TranslatePoint(canvasPoint, child).Value;
 
+            // Panel.Children
             if (child is Panel panel
                 && panel.GetTransformedBounds().Value.Bounds.Contains(childPoint))
             {
@@ -361,7 +362,7 @@ public class ResizingAdornerControl : TemplatedControl
                     Canvas.SetLeft(control, position.X);
                     Canvas.SetTop(control, position.Y);
                 }
-                           
+
                 if (control.Parent is Panel childPanel)
                 {
                     childPanel.Children.Remove(control);
@@ -373,6 +374,7 @@ public class ResizingAdornerControl : TemplatedControl
                 break;
             }
 
+            // ContentControl.Content
             if (child is ContentControl contentControl
                 && child.GetTransformedBounds().Value.Bounds.Contains(childPoint))
             {
@@ -381,13 +383,34 @@ public class ResizingAdornerControl : TemplatedControl
                     isAddedToChild = true;
                     break;
                 }
-                    
+
                 if (control.Parent is ContentControl childContentControl)
                 {
                     childContentControl.Content = null;
                 }
 
                 contentControl.Content = control;
+                isAddedToChild = true;
+                    
+                break;
+            }
+
+            // Decorator.Child
+            if (child is Decorator decorator
+                && child.GetTransformedBounds().Value.Bounds.Contains(childPoint))
+            {
+                if (control.Parent == decorator)
+                {
+                    isAddedToChild = true;
+                    break;
+                }
+
+                if (control.Parent is Decorator childDecorator)
+                {
+                    childDecorator.Child = null;
+                }
+
+                decorator.Child = control;
                 isAddedToChild = true;
                     
                 break;
@@ -404,16 +427,24 @@ public class ResizingAdornerControl : TemplatedControl
             Canvas.SetLeft(control, position.X);
             Canvas.SetTop(control, position.Y);
 
+            // Panel.Children
             if (control.Parent is Panel childPanel)
             {
                 childPanel.Children.Remove(control);
             }
-                    
+
+            // ContentControl.Content
             if (control.Parent is ContentControl childContentControl)
             {
                 childContentControl.Content = null;
             }
- 
+
+            // Decorator.Child
+            if (control.Parent is Decorator childDecorator)
+            {
+                childDecorator.Child = null;
+            }
+
             editorCanvas.Children.Add(control);
         }
     }
