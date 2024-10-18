@@ -2,8 +2,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:generic="clr-namespace:System.Collections.Generic;assembly=System.Collections"
-        xmlns:system="clr-namespace:System;assembly=System.Runtime"
         mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="600"
         Width="1000" Height="600"
         WindowStartupLocation="CenterScreen"
@@ -13,27 +11,8 @@
   <Grid ColumnDefinitions="200,*,200">
 
     <DockPanel Grid.Column="0">
-
       <ToolBox Name="ControlsToolBox" 
-               EditorCanvas="EditorCanvas">
-        <ToolBox.ItemsSource>
-          <generic:List x:TypeArguments="x:String">
-            <system:String>TextBlock</system:String>
-            <system:String>Label</system:String>
-            <system:String>TextBox</system:String>
-            <system:String>Button</system:String>
-            <system:String>RadioButton</system:String>
-            <system:String>CheckBox</system:String>
-            <system:String>GroupBox</system:String>
-            <system:String>Rectangle</system:String>
-            <system:String>Ellipse</system:String>
-            <system:String>StackPanel</system:String>
-            <system:String>WrapPanel</system:String>
-            <system:String>DockPanel</system:String>
-            <system:String>Canvas</system:String>
-          </generic:List>
-        </ToolBox.ItemsSource>
-      </ToolBox>
+               EditorCanvas="EditorCanvas" />
     </DockPanel>
 
     <DockPanel Grid.Column="1">
@@ -61,7 +40,6 @@
                                 ClipToBounds="False"
                                 IsVisible="{Binding #IsResizingEnabledCheckBox.IsChecked}" />
               <Canvas x:Name="EditorCanvas"
-                      Classes="ResizingAdorner" 
                       Background="Transparent" 
                       Width="416" Height="416"
                       ResizingAdornerControl.IsResizingEnabled="{Binding #IsResizingEnabledCheckBox.IsChecked}"
@@ -73,10 +51,10 @@
 
     </DockPanel>
 
+    <DockPanel Grid.Column="2">
       <Grid ColumnDefinitions="*,Auto"
             RowDefinitions="Auto,Auto"
-            Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}"
-            Grid.Column="2">
+            Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
         <!-- Foreground -->
         <Label Content="Foreground"
                IsVisible="{Binding #ForegroundColorPicker.IsVisible}"
@@ -96,7 +74,8 @@
                      Grid.Row="1"
                      Grid.Column="1" />
       </Grid>
+    </DockPanel>
 
-    </Grid>
+  </Grid>
 
 </Window>

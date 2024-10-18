@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -25,6 +26,24 @@ public partial class MainWindow : Window
 
         InitializeProperties();
 
+        var toolboxControls = new List<string>()
+        {
+            "TextBlock",
+            "Label",
+            "TextBox",
+            "Button",
+            "RadioButton",
+            "CheckBox",
+            "GroupBox",
+            "Rectangle",
+            "Ellipse",
+            "StackPanel",
+            "WrapPanel",
+            "DockPanel",
+            "Canvas",
+        };
+
+        ControlsToolBox.ItemsSource = toolboxControls;
     }
 
     private void InitializeProperties()
