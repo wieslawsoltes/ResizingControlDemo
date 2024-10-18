@@ -26,7 +26,7 @@ public partial class MainWindow : Window
 
         InitializeProperties();
 
-        var toolboxControls = new List<string>()
+        var toolboxControls1 = new List<string>()
         {
             "TextBlock",
             "Label",
@@ -41,6 +41,56 @@ public partial class MainWindow : Window
             "WrapPanel",
             "DockPanel",
             "Canvas",
+        };
+
+        var toolboxControls = new List<string>
+        {
+            // "Pointer",
+            "Border",
+            "Button",
+            "Calendar",
+            "Canvas",
+            "CheckBox",
+            "ComboBox",
+            "ContentControl",
+            "DataGrid",
+            "DatePicker",
+            "DockPanel",
+            // "DocumentViewer",
+            "Ellipse",
+            "Expander",
+            // "Frame",
+            "Grid",
+            "GridSplitter",
+            "GroupBox",
+            "Image",
+            "Label",
+            "ListBox",
+            // "ListView",
+            // "MediaElement",
+            "Menu",
+            // "PasswordBox",
+            "ProgressBar",
+            "RadioButton",
+            "Rectangle",
+            // "RichTextBox",
+            "ScrollBar",
+            "ScrollViewer",
+            "Separator",
+            "Slider",
+            "StackPanel",
+            // "StatusBar",
+            "TabControl",
+            "TextBlock",
+            "TextBox",
+            // "ToolBar",
+            // "ToolBarPanel",
+            // "ToolBarTray",
+            "TreeView",
+            "Viewbox",
+            // "WebBrowser",
+            // "WindowsFormsHost",
+            "WrapPanel"
         };
 
         ControlsToolBox.ItemsSource = toolboxControls;
