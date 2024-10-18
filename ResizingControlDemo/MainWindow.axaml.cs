@@ -1,20 +1,17 @@
-using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Chrome;
-using Avalonia.Controls.Presenters;
-using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Reactive;
-using Avalonia.VisualTree;
 using ResizingControlDemo.Controls;
 
 namespace ResizingControlDemo;
 
 public partial class MainWindow : Window
 {
+    private Control? _selectedControl;
+
     public MainWindow()
     {
         InitializeComponent();
@@ -22,21 +19,10 @@ public partial class MainWindow : Window
         AddHandler(KeyDownEvent, KeyDownHandler, RoutingStrategies.Tunnel | RoutingStrategies.Bubble);
     }
 
-    protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
-    {
-        base.OnApplyTemplate(e);
-
-        ShowTitleBar();
-    }
-
-    private Control? _selectedControl;
-    
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
 
-        ShowTitleBar();
-        
         ForegroundColorPicker.IsVisible = false;
         ForegroundColorPicker.ColorChanged += ForegroundColorPickerOnColorChanged;
 
@@ -217,16 +203,6 @@ public partial class MainWindow : Window
                 button.Background = new SolidColorBrush(color);
                 break;
             }
-        }
-    }
-
-    private void ShowTitleBar()
-    {
-        var titleBar = this.GetVisualDescendants().OfType<TitleBar>().FirstOrDefault();
-        if (titleBar is not null)
-        {
-            titleBar.SetCurrentValue(TitleBar.IsVisibleProperty, true);
-            // titleBar.IsVisible = true;
         }
     }
 
