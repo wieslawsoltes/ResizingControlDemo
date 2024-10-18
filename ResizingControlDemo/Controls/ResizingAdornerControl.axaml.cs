@@ -363,10 +363,7 @@ public class ResizingAdornerControl : TemplatedControl
                     Canvas.SetTop(control, position.Y);
                 }
 
-                if (control.Parent is Panel childPanel)
-                {
-                    childPanel.Children.Remove(control);
-                }
+                RemoveFromParent(control);
 
                 panel.Children.Add(control);
                 isAddedToChild = true;
@@ -384,10 +381,7 @@ public class ResizingAdornerControl : TemplatedControl
                     break;
                 }
 
-                if (control.Parent is ContentControl childContentControl)
-                {
-                    childContentControl.Content = null;
-                }
+                RemoveFromParent(control);
 
                 contentControl.Content = control;
                 isAddedToChild = true;
@@ -405,10 +399,7 @@ public class ResizingAdornerControl : TemplatedControl
                     break;
                 }
 
-                if (control.Parent is Decorator childDecorator)
-                {
-                    childDecorator.Child = null;
-                }
+                RemoveFromParent(control);
 
                 decorator.Child = control;
                 isAddedToChild = true;
@@ -427,25 +418,27 @@ public class ResizingAdornerControl : TemplatedControl
             Canvas.SetLeft(control, position.X);
             Canvas.SetTop(control, position.Y);
 
-            // Panel.Children
-            if (control.Parent is Panel childPanel)
-            {
-                childPanel.Children.Remove(control);
-            }
-
-            // ContentControl.Content
-            if (control.Parent is ContentControl childContentControl)
-            {
-                childContentControl.Content = null;
-            }
-
-            // Decorator.Child
-            if (control.Parent is Decorator childDecorator)
-            {
-                childDecorator.Child = null;
-            }
+            RemoveFromParent(control);
 
             editorCanvas.Children.Add(control);
+        }
+    }
+
+    private static void RemoveFromParent(Control control)
+    {
+        if (control.Parent is Panel childPanel)
+        {
+            childPanel.Children.Remove(control);
+        }
+
+        if (control.Parent is ContentControl childContentControl)
+        {
+            childContentControl.Content = null;
+        }
+
+        if (control.Parent is Decorator childDecorator)
+        {
+            childDecorator.Child = null;
         }
     }
 
