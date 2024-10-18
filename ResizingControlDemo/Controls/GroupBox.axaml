@@ -13,18 +13,8 @@
     <!-- Set Defaults -->
     <Setter Property="Template">
       <ControlTemplate>
-          <Grid>
-            <Grid.RowDefinitions>
-              <RowDefinition Height="Auto"/>
-              <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="Auto"/>
-              <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+          <Grid RowDefinitions="Auto,*" ColumnDefinitions="Auto,*">
             <Border ZIndex="1" 
-                    Padding="0,0,0,0" 
-                    Background="{DynamicResource BackgroundBrush}" 
                     Margin="8,2,0,0">
               <TextBlock Text="{TemplateBinding Header}" />
             </Border>
