@@ -302,6 +302,7 @@ public partial class MainWindow : Window
 
         if (selectedResizingAdornerControl.AdornedElement is Control control)
         {
+            // Panel.Children
             if (control.Parent is Panel panel)
             {
                 panel.Children.Remove(control);
@@ -309,9 +310,18 @@ public partial class MainWindow : Window
                 ResizingHost.SetValue(ResizingHostControl.SelectedResizingAdornerControlProperty, null);
             }
 
+            // ContentControl.Content
             if (control.Parent is ContentControl contentControl)
             {
                 contentControl.Content = null;
+
+                ResizingHost.SetValue(ResizingHostControl.SelectedResizingAdornerControlProperty, null);
+            }
+
+            // Decorator.Child
+            if (control.Parent is Decorator decorator)
+            {
+                decorator.Child = null;
 
                 ResizingHost.SetValue(ResizingHostControl.SelectedResizingAdornerControlProperty, null);
             }
