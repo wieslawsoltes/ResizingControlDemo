@@ -61,7 +61,7 @@ public class ControlFactory
             }
             case "ComboBox":
             {
-                return new CheckBox
+                return new ComboBox
                 {
                     VerticalAlignment = VerticalAlignment.Center,
                     Width = 128,
@@ -218,8 +218,9 @@ public class ControlFactory
             {
                 return new ScrollBar
                 {
-                    Width = 128,
-                    Height = 24,
+                    Width = 24,
+                    Height = 128,
+                    AllowAutoHide = false,
                 };
             }
             case "ScrollViewer":
@@ -245,7 +246,7 @@ public class ControlFactory
                 return new Slider
                 {
                     Width = 128,
-                    Height = 24,
+                    Height = 48,
                 };
             }
             case "StackPanel":
