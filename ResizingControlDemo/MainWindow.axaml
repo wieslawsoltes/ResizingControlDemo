@@ -2,8 +2,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="600"
-        Width="1000" Height="600"
+        xmlns:system="clr-namespace:System;assembly=System.Runtime"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="678000"
+        Width="1000" Height="780"
         WindowStartupLocation="CenterScreen"
         x:Class="ResizingControlDemo.MainWindow"
         Title="Project 1">
@@ -12,7 +13,27 @@
 
     <DockPanel Grid.Column="0">
       <ToolBox Name="ControlsToolBox" 
-               EditorCanvas="EditorCanvas" />
+               EditorCanvas="EditorCanvas">
+        <ToolBox.Styles>
+          <Style Selector="ListBoxItem">
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Padding" Value="3" />
+          </Style>
+        </ToolBox.Styles>
+        <ToolBox.ItemTemplate>
+          <DataTemplate DataType="system:String">
+            <StackPanel Orientation="Horizontal">
+              <Svg Path="{Binding ., StringFormat={}/Assets/Icons/Controls/{0}.svg}"
+                   Width="16"
+                   Height="16"
+                   Margin="6,0,0,0" />
+              <TextBlock Text="{Binding .}"
+                         Margin="6,0,6,0"
+                         VerticalAlignment="Center" />
+            </StackPanel>
+          </DataTemplate>
+        </ToolBox.ItemTemplate>
+      </ToolBox>
     </DockPanel>
 
     <DockPanel Grid.Column="1">
