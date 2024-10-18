@@ -26,23 +26,6 @@ public partial class MainWindow : Window
 
         InitializeProperties();
 
-        var toolboxControls1 = new List<string>()
-        {
-            "TextBlock",
-            "Label",
-            "TextBox",
-            "Button",
-            "RadioButton",
-            "CheckBox",
-            "GroupBox",
-            "Rectangle",
-            "Ellipse",
-            "StackPanel",
-            "WrapPanel",
-            "DockPanel",
-            "Canvas",
-        };
-
         var toolboxControls = new List<string>
         {
             // "Pointer",
