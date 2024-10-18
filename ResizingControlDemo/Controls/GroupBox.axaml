@@ -10,26 +10,52 @@
   </Design.PreviewWith>
 
   <Style Selector="GroupBox">
-    <!-- Set Defaults -->
+    
+    <Setter Property="BorderBrush" Value="{DynamicResource TextControlForeground}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+    
     <Setter Property="Template">
       <ControlTemplate>
-          <Grid RowDefinitions="Auto,*" ColumnDefinitions="Auto,*">
-            <Border ZIndex="1" 
-                    Margin="8,2,0,0">
-              <TextBlock Text="{TemplateBinding Header}" />
-            </Border>
-            <Border Grid.RowSpan="2" 
-                    Grid.ColumnSpan="2" 
-                    Margin="0,10,0,0"
-                    CornerRadius="8"
-                    Padding="8"
-                    BorderBrush="{TemplateBinding Foreground}"
-                    BorderThickness="1">
-              <ContentPresenter Content="{TemplateBinding Content}" />
-            </Border>
-          </Grid>
+        <Grid ColumnDefinitions="6,Auto,*,6" RowDefinitions="Auto,Auto,*,6">
+          <Border Name="PART_Border"
+                  Grid.Row="1"
+                  Grid.RowSpan="3"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="4"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}">
+            <Border.Clip>
+              <MultiBinding Converter="{x:Static GroupBoxClipConverter.Instance}">
+                <Binding ElementName="PART_Border" Path="Bounds" />
+                <Binding ElementName="PART_HeaderContentPresenter" Path="Bounds" />
+              </MultiBinding>
+            </Border.Clip>
+          </Border>
+          <ContentPresenter x:Name="PART_HeaderContentPresenter"
+                            Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.Column="1"
+                            Padding="3,1,3,0"
+                            Background="{TemplateBinding Background}"
+                            Content="{TemplateBinding Header}"
+                            ContentTemplate="{TemplateBinding HeaderTemplate}"
+                            RecognizesAccessKey="True" />
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Grid.ColumnSpan="2"
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}" />
+        </Grid>
       </ControlTemplate>
     </Setter>
+
   </Style>
 </Styles>
 
