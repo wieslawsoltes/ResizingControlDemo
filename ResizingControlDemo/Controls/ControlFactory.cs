@@ -91,7 +91,7 @@ public class ControlFactory
             {
                 return new DatePicker
                 {
-                    Width = 128,
+                    Width = 296,
                     Height = 24,
                 };
             }
@@ -146,8 +146,8 @@ public class ControlFactory
                 return new GroupBox
                 {
                     Header = "GroupBox",
-                    Width = 140,
-                    Height = 92
+                    Width = 128,
+                    Height = 96
                 };
             }  
             case "Image":
