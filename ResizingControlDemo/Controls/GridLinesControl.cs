@@ -56,8 +56,8 @@ public sealed class GridLinesControl : Control
 
     public GridLinesControl()
     {
-        _pen = new Pen(new SolidColorBrush(Color.FromArgb((byte)(255.0 * 0.1), 0, 0, 0))); 
-        _penBold = new Pen(new SolidColorBrush(Color.FromArgb((byte)(255.0 * 0.3), 0, 0, 0)));
+        _pen = new Pen(new SolidColorBrush(Color.FromArgb((byte)(255.0 * 0.1), 14, 94, 253))); 
+        _penBold = new Pen(new SolidColorBrush(Color.FromArgb((byte)(255.0 * 0.3), 14, 94, 253)));
     }
 
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
