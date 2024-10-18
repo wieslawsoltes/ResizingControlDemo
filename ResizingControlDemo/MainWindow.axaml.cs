@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using Avalonia.Media.Immutable;
 using Avalonia.Reactive;
 using ResizingControlDemo.Controls;
 
@@ -92,6 +95,19 @@ public partial class MainWindow : Window
             .Subscribe(new AnonymousObserver<ResizingAdornerControl?>(UpdateProperties));
     }
 
+    private static Color? GetColor(IBrush? brush)
+    {
+        switch (brush)
+        {
+            case null:
+                break;
+            case ISolidColorBrush solidColorBrush:
+                return solidColorBrush.Color;
+        }
+
+        return null;
+    }
+    
     private void UpdateProperties(ResizingAdornerControl? resizingAdornerControl)
     {
         if (resizingAdornerControl is not null)
@@ -101,9 +117,29 @@ public partial class MainWindow : Window
             // Foreground
             switch (_selectedControl)
             {
+                case ContentControl contentControl:
+                {
+                    var color = GetColor(contentControl.Foreground);
+                    if (color is not null)
+                    {
+                        ForegroundColorPicker.Color = color.Value;
+                        ForegroundColorPicker.IsVisible = true;
+                    }
+                    break;
+                }
+                case TemplatedControl templatedControl:
+                {
+                    var color = GetColor(templatedControl.Foreground);
+                    if (color is not null)
+                    {
+                        ForegroundColorPicker.Color = color.Value;
+                        ForegroundColorPicker.IsVisible = true;
+                    }
+                    break;
+                }
                 case TextBlock textBlock:
                 {
-                    var color = (textBlock.Foreground as SolidColorBrush)?.Color;
+                    var color = GetColor(textBlock.Foreground);
                     if (color is not null)
                     {
                         ForegroundColorPicker.Color = color.Value;
@@ -112,74 +148,44 @@ public partial class MainWindow : Window
 
                     break;
                 }
-                case Label label:
-                {
-                    var color = (label.Foreground as SolidColorBrush)?.Color;
-                    if (color is not null)
-                    {
-                        ForegroundColorPicker.Color = color.Value;
-                        ForegroundColorPicker.IsVisible = true;
-                    }
-                    break;
-                }
-                case TextBox textBox:
-                {
-                    var color = (textBox.Foreground as SolidColorBrush)?.Color;
-                    if (color is not null)
-                    {
-                        ForegroundColorPicker.Color = color.Value;
-                        ForegroundColorPicker.IsVisible = true;
-                    }
-                    break;
-                }
-                case Button button:
-                {
-                    var color = (button.Foreground as SolidColorBrush)?.Color;
-                    if (color is not null)
-                    {
-                        ForegroundColorPicker.Color = color.Value;
-                        ForegroundColorPicker.IsVisible = true;
-                    }
-                    break;
-                }
             }
                     
             // Background
             switch (_selectedControl)
             {
+                case Panel panel:
+                {
+                    var color = GetColor(panel.Background);
+                    if (color is not null)
+                    {
+                        BackgroundColorPicker.Color = color.Value;
+                        BackgroundColorPicker.IsVisible = true;
+                    }
+                    break;
+                }
+                case ContentControl contentControl:
+                {
+                    var color = GetColor(contentControl.Background);
+                    if (color is not null)
+                    {
+                        BackgroundColorPicker.Color = color.Value;
+                        BackgroundColorPicker.IsVisible = true;
+                    }
+                    break;
+                }
+                case TemplatedControl templatedControl:
+                {
+                    var color = GetColor(templatedControl.Background);
+                    if (color is not null)
+                    {
+                        BackgroundColorPicker.Color = color.Value;
+                        BackgroundColorPicker.IsVisible = true;
+                    }
+                    break;
+                }
                 case TextBlock textBlock:
                 {
-                    var color = (textBlock.Background as SolidColorBrush)?.Color;
-                    if (color is not null)
-                    {
-                        BackgroundColorPicker.Color = color.Value;
-                        BackgroundColorPicker.IsVisible = true;
-                    }
-                    break;
-                }
-                case Label label:
-                {
-                    var color = (label.Background as SolidColorBrush)?.Color;
-                    if (color is not null)
-                    {
-                        BackgroundColorPicker.Color = color.Value;
-                        BackgroundColorPicker.IsVisible = true;
-                    }
-                    break;
-                }
-                case TextBox textBox:
-                {
-                    var color = (textBox.Background as SolidColorBrush)?.Color;
-                    if (color is not null)
-                    {
-                        BackgroundColorPicker.Color = color.Value;
-                        BackgroundColorPicker.IsVisible = true;
-                    }
-                    break;
-                }
-                case Button button:
-                {
-                    var color = (button.Background as SolidColorBrush)?.Color;
+                    var color = GetColor(textBlock.Background);
                     if (color is not null)
                     {
                         BackgroundColorPicker.Color = color.Value;
@@ -210,24 +216,19 @@ public partial class MainWindow : Window
 
         switch (_selectedControl)
         {
+            case ContentControl contentControl:
+            {
+                contentControl.Foreground = new SolidColorBrush(color);
+                break;
+            }
+            case TemplatedControl templatedControl:
+            {
+                templatedControl.Foreground = new SolidColorBrush(color);
+                break;
+            }
             case TextBlock textBlock:
             {
                 textBlock.Foreground = new SolidColorBrush(color);
-                break;
-            }
-            case Label label:
-            {
-                label.Foreground = new SolidColorBrush(color);
-                break;
-            }
-            case TextBox textBox:
-            {
-                textBox.Foreground = new SolidColorBrush(color);
-                break;
-            }
-            case Button button:
-            {
-                button.Foreground = new SolidColorBrush(color);
                 break;
             }
         }
@@ -244,24 +245,24 @@ public partial class MainWindow : Window
 
         switch (_selectedControl)
         {
+            case Panel panel:
+            {
+                panel.Background = new SolidColorBrush(color);
+                break;
+            }
+            case ContentControl contentControl:
+            {
+                contentControl.Background = new SolidColorBrush(color);
+                break;
+            }
+            case TemplatedControl templatedControl:
+            {
+                templatedControl.Background = new SolidColorBrush(color);
+                break;
+            }
             case TextBlock textBlock:
             {
                 textBlock.Background = new SolidColorBrush(color);
-                break;
-            }
-            case Label label:
-            {
-                label.Background = new SolidColorBrush(color);
-                break;
-            }
-            case TextBox textBox:
-            {
-                textBox.Background = new SolidColorBrush(color);
-                break;
-            }
-            case Button button:
-            {
-                button.Background = new SolidColorBrush(color);
                 break;
             }
         }
