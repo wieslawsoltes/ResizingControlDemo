@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Shapes;
 using Avalonia.Layout;
 using Avalonia.Media;
@@ -11,33 +12,13 @@ public class ControlFactory
     {
         switch (typeName)
         {
-            case "TextBlock":
+            case "Border":
             {
-                return new TextBlock
+                return new Border
                 {
-                    Text = "TextBlock",
-                    Width = 120,
-                    Height = 24,
-                };
-            }
-            case "Label":
-            {
-                return new Label
-                {
-                    Content = "Label",
-                    HorizontalContentAlignment = HorizontalAlignment.Left,
-                    VerticalContentAlignment = VerticalAlignment.Center,
-                    Width = 120,
-                    Height = 32,
-                };
-            }
-            case "TextBox":
-            {
-                return new TextBox
-                {
-                    Text = "TextBox",
-                    Width = 120,
-                    Height = 32,
+                    Background = Brushes.LightGray,
+                    Width = 128,
+                    Height = 128,
                 };
             }
             case "Button":
@@ -47,18 +28,25 @@ public class ControlFactory
                     Content = "Button",
                     HorizontalContentAlignment = HorizontalAlignment.Center,
                     VerticalContentAlignment = VerticalAlignment.Center,
-                    Width = 120,
+                    Width = 128,
                     Height = 32,
                 };
             }
-            case "RadioButton":
+            case "Calendar":
             {
-                return new RadioButton
+                return new Calendar
                 {
-                    Content = "RadioButton",
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Width = 120,
-                    Height = 32,
+                    Width = 128,
+                    Height = 128,
+                };
+            }
+            case "Canvas":
+            {
+                return new Canvas
+                {
+                    Background = Brushes.LightGray,
+                    Width = 128,
+                    Height = 128,
                 };
             }
             case "CheckBox":
@@ -67,8 +55,90 @@ public class ControlFactory
                 {
                     Content = "CheckBox",
                     VerticalAlignment = VerticalAlignment.Center,
-                    Width = 120,
+                    Width = 128,
                     Height = 32,
+                };
+            }
+            case "ComboBox":
+            {
+                return new CheckBox
+                {
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Width = 128,
+                    Height = 32,
+                };
+            }
+            case "ContentControl":
+            {
+                return new ContentControl
+                {
+                    Content = "ContentControl",
+                    Background = Brushes.LightGray,
+                    Width = 128,
+                    Height = 128,
+                };
+            }
+            case "DataGrid":
+            {
+                return new DataGrid
+                {
+                    Background = Brushes.LightGray,
+                    Width = 128,
+                    Height = 128,
+                };
+            } 
+            case "DatePicker":
+            {
+                return new DatePicker
+                {
+                    Width = 128,
+                    Height = 24,
+                };
+            }
+            case "DockPanel":
+            {
+                return new DockPanel
+                {
+                    Background = Brushes.LightGray,
+                    Width = 128,
+                    Height = 160,
+                };
+            }
+            case "Ellipse":
+            {
+                return new Ellipse
+                {
+                    Fill = Brushes.Gray,
+                    Width = 48,
+                    Height = 48,
+                };
+            } 
+            case "Expander":
+            {
+                return new Expander
+                {
+                    Content = "Expander",
+                    Background = Brushes.LightGray,
+                    Width = 128,
+                    Height = 32,
+                };
+            }
+            case "Grid":
+            {
+                return new Grid
+                {
+                    Background = Brushes.LightGray,
+                    Width = 128,
+                    Height = 160,
+                };
+            }
+            case "GridSplitter":
+            {
+                return new GridSplitter
+                {
+                    Background = Brushes.LightGray,
+                    Width = 128,
+                    Height = 8,
                 };
             }
             case "GroupBox":
@@ -77,21 +147,62 @@ public class ControlFactory
                 {
                     Header = "GroupBox",
                     Width = 140,
-                    Height = 92,
-                    Content = new StackPanel
-                    {
-                        Children =
-                        {
-                            new RadioButton
-                            {
-                                Content = "RadioButton1",
-                            },
-                            new RadioButton
-                            {
-                                Content = "RadioButton2",
-                            },
-                        }
-                    }
+                    Height = 92
+                };
+            }  
+            case "Image":
+            {
+                return new Image
+                {
+                    Width = 48,
+                    Height = 48,
+                };
+            }
+            case "Label":
+            {
+                return new Label
+                {
+                    Content = "Label",
+                    HorizontalContentAlignment = HorizontalAlignment.Left,
+                    VerticalContentAlignment = VerticalAlignment.Center,
+                    Width = 128,
+                    Height = 32,
+                };
+            }
+            case "ListBox":
+            {
+                return new ListBox
+                {
+                    Background = Brushes.LightGray,
+                    Width = 128,
+                    Height = 160,
+                };
+            }  
+            case "Menu":
+            {
+                return new Menu
+                {
+                    Background = Brushes.LightGray,
+                    Width = 128,
+                    Height = 24,
+                };
+            }   
+            case "ProgressBar":
+            {
+                return new ProgressBar
+                {
+                    Width = 128,
+                    Height = 24,
+                };
+            }
+            case "RadioButton":
+            {
+                return new RadioButton
+                {
+                    Content = "RadioButton",
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Width = 128,
+                    Height = 32,
                 };
             }
             case "Rectangle":
@@ -103,13 +214,38 @@ public class ControlFactory
                     Height = 48,
                 };
             }
-            case "Ellipse":
+            case "ScrollBar":
             {
-                return new Ellipse
+                return new ScrollBar
                 {
-                    Fill = Brushes.Gray,
-                    Width = 48,
-                    Height = 48,
+                    Width = 128,
+                    Height = 24,
+                };
+            }
+            case "ScrollViewer":
+            {
+                return new ScrollViewer
+                {
+                    Background = Brushes.LightGray,
+                    Width = 128,
+                    Height = 160,
+                };
+            } 
+            case "Separator":
+            {
+                return new Separator
+                {
+                    Background = Brushes.LightGray,
+                    Width = 128,
+                    Height = 1,
+                };
+            }
+            case "Slider":
+            {
+                return new Slider
+                {
+                    Width = 128,
+                    Height = 24,
                 };
             }
             case "StackPanel":
@@ -117,8 +253,52 @@ public class ControlFactory
                 return new StackPanel
                 {
                     Background = Brushes.LightGray,
-                    Width = 120,
+                    Width = 128,
                     Height = 160,
+                };
+            }
+            case "TabControl":
+            {
+                return new TabControl
+                {
+                    Background = Brushes.LightGray,
+                    Width = 128,
+                    Height = 160,
+                };
+            }
+            case "TextBlock":
+            {
+                return new TextBlock
+                {
+                    Text = "TextBlock",
+                    Width = 128,
+                    Height = 16,
+                };
+            }
+            case "TextBox":
+            {
+                return new TextBox
+                {
+                    Text = "TextBox",
+                    Width = 128,
+                    Height = 32,
+                };
+            }
+            case "TreeView":
+            {
+                return new TreeView
+                {
+                    Background = Brushes.LightGray,
+                    Width = 128,
+                    Height = 160,
+                };
+            }
+            case "Viewbox":
+            {
+                return new Viewbox
+                {
+                    Width = 128,
+                    Height = 128,
                 };
             }
             case "WrapPanel":
@@ -126,26 +306,8 @@ public class ControlFactory
                 return new WrapPanel
                 {
                     Background = Brushes.LightGray,
-                    Width = 120,
+                    Width = 128,
                     Height = 160,
-                };
-            }
-            case "DockPanel":
-            {
-                return new DockPanel
-                {
-                    Background = Brushes.LightGray,
-                    Width = 120,
-                    Height = 160,
-                };
-            }
-            case "Canvas":
-            {
-                return new Canvas
-                {
-                    Background = Brushes.LightGray,
-                    Width = 240,
-                    Height = 240,
                 };
             }
         }
