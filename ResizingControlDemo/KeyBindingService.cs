@@ -7,12 +7,10 @@ namespace ResizingControlDemo;
 
 public class KeyBindingService
 {
-    private readonly ResizingHostControl _resizingHostControl;
+    public ResizingHostControl ResizingHostControl { get; set; }
 
-    public KeyBindingService(TopLevel topLevel, ResizingHostControl resizingHostControl)
+    public KeyBindingService(TopLevel topLevel)
     {
-        _resizingHostControl = resizingHostControl;
-
         topLevel.AddHandler(InputElement.KeyDownEvent, KeyDownHandler, RoutingStrategies.Tunnel | RoutingStrategies.Bubble);
     }
 
@@ -26,7 +24,7 @@ public class KeyBindingService
 
     private void Delete()
     {
-        var selectedResizingAdornerControl = _resizingHostControl.GetValue(ResizingHostControl.SelectedResizingAdornerControlProperty);
+        var selectedResizingAdornerControl = ResizingHostControl.GetValue(ResizingHostControl.SelectedResizingAdornerControlProperty);
         if (selectedResizingAdornerControl is null)
         {
             return;
@@ -42,7 +40,7 @@ public class KeyBindingService
         {
             panel.Children.Remove(control);
 
-            _resizingHostControl.SetValue(ResizingHostControl.SelectedResizingAdornerControlProperty, null);
+            ResizingHostControl.SetValue(ResizingHostControl.SelectedResizingAdornerControlProperty, null);
         }
 
         // ContentControl.Content
@@ -50,7 +48,7 @@ public class KeyBindingService
         {
             contentControl.Content = null;
 
-            _resizingHostControl.SetValue(ResizingHostControl.SelectedResizingAdornerControlProperty, null);
+            ResizingHostControl.SetValue(ResizingHostControl.SelectedResizingAdornerControlProperty, null);
         }
 
         // Decorator.Child
@@ -58,7 +56,7 @@ public class KeyBindingService
         {
             decorator.Child = null;
 
-            _resizingHostControl.SetValue(ResizingHostControl.SelectedResizingAdornerControlProperty, null);
+            ResizingHostControl.SetValue(ResizingHostControl.SelectedResizingAdornerControlProperty, null);
         }
     }
 }

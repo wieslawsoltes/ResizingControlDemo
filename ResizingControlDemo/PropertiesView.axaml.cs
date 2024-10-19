@@ -1,3 +1,4 @@
+using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
@@ -11,12 +12,13 @@ namespace ResizingControlDemo;
 public partial class PropertiesView : UserControl
 {
     private Control? _selectedControl;
+    private IDisposable? _subscription;
 
-    public static readonly StyledProperty<ResizingHostControl> ResizingHostControlProperty = 
-        AvaloniaProperty.Register<PropertiesView, ResizingHostControl>(nameof(ResizingHostControl));
+    public static readonly StyledProperty<ResizingHostControl?> ResizingHostControlProperty = 
+        AvaloniaProperty.Register<PropertiesView, ResizingHostControl?>(nameof(ResizingHostControl));
 
     [ResolveByName]
-    public ResizingHostControl ResizingHostControl
+    public ResizingHostControl? ResizingHostControl
     {
         get => GetValue(ResizingHostControlProperty);
         set => SetValue(ResizingHostControlProperty, value);
@@ -34,6 +36,23 @@ public partial class PropertiesView : UserControl
         InitializeProperties();
     }
 
+    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+    {
+        base.OnPropertyChanged(change);
+
+        if (change.Property == ResizingHostControlProperty)
+        {
+            DeInitializeProperties();
+            _subscription?.Dispose();
+
+            _subscription = ResizingHostControl?
+                .GetObservable(ResizingHostControl.SelectedResizingAdornerControlProperty)
+                .Subscribe(new AnonymousObserver<ResizingAdornerControl?>(UpdateProperties));
+
+            InitializeProperties();
+        }
+    }
+
     private void InitializeProperties()
     {
         ForegroundColorPicker.IsVisible = false;
@@ -41,10 +60,15 @@ public partial class PropertiesView : UserControl
 
         BackgroundColorPicker.IsVisible = false;
         BackgroundColorPicker.ColorChanged += BackgroundColorPickerOnColorChanged;
+    }
 
-        ResizingHostControl
-            .GetObservable(ResizingHostControl.SelectedResizingAdornerControlProperty)
-            .Subscribe(new AnonymousObserver<ResizingAdornerControl?>(UpdateProperties));
+    private void DeInitializeProperties()
+    {
+        ForegroundColorPicker.IsVisible = false;
+        ForegroundColorPicker.ColorChanged -= ForegroundColorPickerOnColorChanged;
+
+        BackgroundColorPicker.IsVisible = false;
+        BackgroundColorPicker.ColorChanged -= BackgroundColorPickerOnColorChanged;
     }
 
     private static Color? GetColor(IBrush? brush)

@@ -3,10 +3,20 @@
              x:Class="ResizingControlDemo.App"
              RequestedThemeVariant="Default">
 
+  <Application.Resources>
+    <ControlRecycling x:Key="ControlRecyclingKey" TryToUseIdAsKey="True" />
+    <Color x:Key="RegionColor">Transparent</Color>
+  </Application.Resources>
+
   <Application.Styles>
 
     <FluentTheme />
     <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
+
+    <DockFluentTheme />
+    <Style Selector="DockControl">
+      <Setter Property="(ControlRecyclingDataTemplate.ControlRecycling)" Value="{StaticResource ControlRecyclingKey}" />
+    </Style>
 
     <StyleInclude Source="/Controls/ResizingAdornerControl.axaml" />
     <StyleInclude Source="/Controls/GroupBox.axaml" />

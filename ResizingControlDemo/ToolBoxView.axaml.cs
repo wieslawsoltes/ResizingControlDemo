@@ -7,11 +7,11 @@ namespace ResizingControlDemo;
 
 public partial class ToolBoxView : UserControl
 {
-    public static readonly StyledProperty<Canvas> EditorCanvasProperty = 
-        AvaloniaProperty.Register<ToolBoxView, Canvas>(nameof(EditorCanvas));
+    public static readonly StyledProperty<Canvas?> EditorCanvasProperty = 
+        AvaloniaProperty.Register<ToolBoxView, Canvas?>(nameof(EditorCanvas));
 
     [ResolveByName]
-    public Canvas EditorCanvas
+    public Canvas? EditorCanvas
     {
         get => GetValue(EditorCanvasProperty);
         set => SetValue(EditorCanvasProperty, value);
