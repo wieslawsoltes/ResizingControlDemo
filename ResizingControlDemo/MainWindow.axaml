@@ -33,7 +33,7 @@
           <!-- Left Pane -->
 
           <ToolDock x:Name="LeftPane" Id="LeftPane" Proportion="0.25" Alignment="Left">
-            <Tool x:Name="SolutionExplorer" Id="SolutionExplorer" Title="Solution Explorer" x:DataType="Tool">
+            <Tool x:Name="Toolbox" Id="Toolbox" Title="Toolbox" x:DataType="Tool">
               <local:ToolBoxView EditorCanvas="{Binding #MainView.EditorView.EditorCanvas}" />
             </Tool>
           </ToolDock>
