@@ -10,16 +10,12 @@
         Title="Project 1">
 
   <Grid ColumnDefinitions="200,*,200">
-
     <local:ToolBoxView EditorCanvas="{Binding #EditorView.EditorCanvas}"
                        Grid.Column="0" />
-
     <local:EditorView Name="EditorView" 
                       Grid.Column="1" />
-
     <local:PropertiesView ResizingHostControl="{Binding #EditorView.ResizingHostControl}" 
                           Grid.Column="2" />
-
   </Grid>
 
 </Window>
