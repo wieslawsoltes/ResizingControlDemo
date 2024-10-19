@@ -9,49 +9,15 @@
         x:Class="ResizingControlDemo.MainWindow"
         Title="Project 1">
 
-
   <Grid ColumnDefinitions="200,*,200">
 
-    <local:ToolBoxView EditorCanvas="EditorCanvas"
+    <local:ToolBoxView EditorCanvas="{Binding #EditorView.EditorCanvas}"
                        Grid.Column="0" />
 
-    <DockPanel Grid.Column="1">
+    <local:EditorView Name="EditorView" 
+                      Grid.Column="1" />
 
-      <CheckBox Name="IsResizingEnabledCheckBox" 
-                Content="Edit Mode"
-                IsChecked="True"
-                HorizontalAlignment="Right"
-                Margin="6"
-                DockPanel.Dock="Bottom"/>
-
-      <ResizingHostControl Name="ResizingHost">
-
-          <Border Width="416" Height="416"
-                  HorizontalAlignment="Center" VerticalAlignment="Center"
-                  BoxShadow="4 11 30 1 #3F000000"
-                  Background="White" >
-            <Panel>
-              <!--
-              <GridControl Width="416" Height="416"
-                           ClipToBounds="False"
-                           IsVisible="{Binding #IsResizingEnabledCheckBox.IsChecked}" />
-              -->
-              <GridLinesControl Width="416" Height="416"
-                                ClipToBounds="False"
-                                IsVisible="{Binding #IsResizingEnabledCheckBox.IsChecked}" />
-              <Canvas x:Name="EditorCanvas"
-                      Background="Transparent" 
-                      Width="416" Height="416"
-                      ResizingAdornerControl.IsResizingEnabled="{Binding #IsResizingEnabledCheckBox.IsChecked}"
-                      ResizingAdornerControl.ResizingHostControl="{Binding #ResizingHost}" />
-            </Panel>
-          </Border>
-
-      </ResizingHostControl>
-
-    </DockPanel>
-
-    <local:PropertiesView ResizingHostControl="ResizingHost" 
+    <local:PropertiesView ResizingHostControl="{Binding #EditorView.ResizingHostControl}" 
                           Grid.Column="2" />
 
   </Grid>
