@@ -2,39 +2,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:system="clr-namespace:System;assembly=System.Runtime"
+        xmlns:local="clr-namespace:ResizingControlDemo"
         mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="678000"
         Width="1000" Height="780"
         WindowStartupLocation="CenterScreen"
         x:Class="ResizingControlDemo.MainWindow"
         Title="Project 1">
 
+
   <Grid ColumnDefinitions="200,*,200">
 
-    <DockPanel Grid.Column="0">
-      <ToolBox Name="ControlsToolBox" 
-               EditorCanvas="EditorCanvas">
-        <ToolBox.Styles>
-          <Style Selector="ListBoxItem">
-            <Setter Property="Margin" Value="0" />
-            <Setter Property="Padding" Value="3" />
-          </Style>
-        </ToolBox.Styles>
-        <ToolBox.ItemTemplate>
-          <DataTemplate DataType="system:String">
-            <StackPanel Orientation="Horizontal">
-              <Svg Path="{Binding ., StringFormat={}/Assets/Icons/Controls/{0}.svg}"
-                   Width="16"
-                   Height="16"
-                   Margin="6,0,0,0" />
-              <TextBlock Text="{Binding .}"
-                         Margin="6,0,6,0"
-                         VerticalAlignment="Center" />
-            </StackPanel>
-          </DataTemplate>
-        </ToolBox.ItemTemplate>
-      </ToolBox>
-    </DockPanel>
+    <local:ToolBoxView EditorCanvas="EditorCanvas"
+                       Grid.Column="0" />
 
     <DockPanel Grid.Column="1">
 
@@ -72,30 +51,8 @@
 
     </DockPanel>
 
-    <DockPanel Grid.Column="2">
-      <Grid ColumnDefinitions="*,Auto"
-            RowDefinitions="Auto,Auto"
-            Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
-        <!-- Foreground -->
-        <Label Content="Foreground"
-               IsVisible="{Binding #ForegroundColorPicker.IsVisible}"
-               VerticalContentAlignment="Center"
-               Grid.Row="0"
-               Grid.Column="0" />
-        <ColorPicker Name="ForegroundColorPicker"
-                     Grid.Row="0"
-                     Grid.Column="1" />
-        <!-- Background -->
-        <Label Content="Background"
-               IsVisible="{Binding #BackgroundColorPicker.IsVisible}"
-               VerticalContentAlignment="Center"
-               Grid.Row="1"
-               Grid.Column="0" />
-        <ColorPicker Name="BackgroundColorPicker"
-                     Grid.Row="1"
-                     Grid.Column="1" />
-      </Grid>
-    </DockPanel>
+    <local:PropertiesView ResizingHostControl="ResizingHost" 
+                          Grid.Column="2" />
 
   </Grid>
 
