@@ -2,6 +2,7 @@ using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Layout;
 using Avalonia.VisualTree;
 using Dock.Model.Avalonia.Controls;
 
@@ -51,6 +52,9 @@ public partial class MainWindow : Window
         {
             if (args.Dockable is Document document)
             {
+                // NOTE: Call UpdateLayout() so template is applied to the document.
+                UpdateLayout();
+
                 EditorView = GetEditorView(document.Id);
             }
         };
