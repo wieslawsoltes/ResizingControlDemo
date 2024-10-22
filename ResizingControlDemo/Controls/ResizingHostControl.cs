@@ -22,7 +22,7 @@ public class ResizingHostControl : Border
         visual.SetValue(SelectedResizingAdornerControlProperty, selectedResizingAdornerControl);
     }
 
-    public ResizingHostControl()
+    static ResizingHostControl()
     {
         BackgroundProperty.OverrideDefaultValue<ResizingHostControl>(Brushes.Transparent);
     }
