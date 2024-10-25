@@ -22,10 +22,10 @@
               Background="White" >
         <Panel>
           <!--
-              <GridControl Width="416" Height="416"
-                           ClipToBounds="False"
-                           IsVisible="{Binding #IsResizingEnabledCheckBox.IsChecked}" />
-              -->
+          <GridControl Width="416" Height="416"
+                       ClipToBounds="False"
+                       IsVisible="{Binding #IsResizingEnabledCheckBox.IsChecked}" />
+          -->
           <GridLinesControl Width="416" Height="416"
                             ClipToBounds="False"
                             IsVisible="{Binding #IsResizingEnabledCheckBox.IsChecked}" />
