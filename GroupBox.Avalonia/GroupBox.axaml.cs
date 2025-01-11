@@ -1,5 +1,5 @@
 using Avalonia.Controls.Primitives;
 
-namespace ResizingControlDemo.Controls;
+namespace GroupBox.Avalonia;
 
 public class GroupBox : HeaderedContentControl;

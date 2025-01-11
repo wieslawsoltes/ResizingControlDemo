@@ -19,7 +19,7 @@
     </Style>
 
     <StyleInclude Source="/Controls/ResizingAdornerControl.axaml" />
-    <StyleInclude Source="/Controls/GroupBox.axaml" />
+    <StyleInclude Source="avares://GroupBox.Avalonia/GroupBox.axaml" />
 
   </Application.Styles>
 

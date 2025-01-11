@@ -143,7 +143,7 @@ public class ControlFactory
             }
             case "GroupBox":
             {
-                return new GroupBox
+                return new GroupBox.Avalonia.GroupBox
                 {
                     Header = "GroupBox",
                     Width = 128,
