@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResizingControlDemo", "ResizingControlDemo\ResizingControlDemo.csproj", "{4331FF34-7CA7-4BA5-AA50-6FFE5F4E7273}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroupBox.Avalonia", "GroupBox.Avalonia\GroupBox.Avalonia.csproj", "{0B162AE5-1FF0-45DC-B3C1-9F7EB0D9EF03}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,9 +12,5 @@ Global
 		{4331FF34-7CA7-4BA5-AA50-6FFE5F4E7273}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4331FF34-7CA7-4BA5-AA50-6FFE5F4E7273}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4331FF34-7CA7-4BA5-AA50-6FFE5F4E7273}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0B162AE5-1FF0-45DC-B3C1-9F7EB0D9EF03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0B162AE5-1FF0-45DC-B3C1-9F7EB0D9EF03}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0B162AE5-1FF0-45DC-B3C1-9F7EB0D9EF03}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0B162AE5-1FF0-45DC-B3C1-9F7EB0D9EF03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
